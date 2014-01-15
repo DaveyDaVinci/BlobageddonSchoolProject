@@ -536,21 +536,9 @@
 		CF2C96F3187DE9C900689346 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				CF2C98BC1880BA2100689346 /* whoosh.m4a */,
-				CF2C98BA1880B6ED00689346 /* electric.png */,
-				CF2C98B61880B62B00689346 /* mediumzaps.wav */,
-				CF2C98B71880B62B00689346 /* zap.wav */,
-				CF2C98B4188044D200689346 /* towers.png */,
-				CF2C98B2188034AA00689346 /* splat.wav */,
-				CF2C98AC1880309900689346 /* splat1.png */,
-				CF2C98AD1880309900689346 /* splat2.png */,
-				CF2C98AE1880309900689346 /* splat3.png */,
-				CF2C98A618802B4900689346 /* smallblob1.png */,
-				CF2C98A718802B4900689346 /* smallblob2.png */,
-				CF2C98A818802B4900689346 /* smallblob3.png */,
-				CF2C98A01880271500689346 /* sprite1.png */,
-				CF2C98A11880271500689346 /* sprite2.png */,
-				CF2C98A21880271500689346 /* sprite3.png */,
+				CFA40DC81886093C00398736 /* background */,
+				CFA40DC71886090A00398736 /* sprites */,
+				CFA40DC6188608FC00398736 /* sounds */,
 				CF2C96F4187DE9C900689346 /* Default.png */,
 				CF2C96F6187DE9C900689346 /* Default@2x.png */,
 				CF2C96F8187DE9C900689346 /* Default-568h@2x.png */,
@@ -929,6 +917,42 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		CFA40DC6188608FC00398736 /* sounds */ = {
+			isa = PBXGroup;
+			children = (
+				CF2C98B2188034AA00689346 /* splat.wav */,
+				CF2C98BC1880BA2100689346 /* whoosh.m4a */,
+				CF2C98B61880B62B00689346 /* mediumzaps.wav */,
+				CF2C98B71880B62B00689346 /* zap.wav */,
+			);
+			name = sounds;
+			sourceTree = "<group>";
+		};
+		CFA40DC71886090A00398736 /* sprites */ = {
+			isa = PBXGroup;
+			children = (
+				CF2C98BA1880B6ED00689346 /* electric.png */,
+				CF2C98AC1880309900689346 /* splat1.png */,
+				CF2C98AD1880309900689346 /* splat2.png */,
+				CF2C98AE1880309900689346 /* splat3.png */,
+				CF2C98A618802B4900689346 /* smallblob1.png */,
+				CF2C98A718802B4900689346 /* smallblob2.png */,
+				CF2C98A818802B4900689346 /* smallblob3.png */,
+				CF2C98A01880271500689346 /* sprite1.png */,
+				CF2C98A11880271500689346 /* sprite2.png */,
+				CF2C98A21880271500689346 /* sprite3.png */,
+			);
+			name = sprites;
+			sourceTree = "<group>";
+		};
+		CFA40DC81886093C00398736 /* background */ = {
+			isa = PBXGroup;
+			children = (
+				CF2C98B4188044D200689346 /* towers.png */,
+			);
+			name = background;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1237,6 +1261,7 @@
 				CF2C9890187DE9CB00689346 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
