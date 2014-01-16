@@ -118,13 +118,6 @@
         [arrayOfSprites addObject:smallBlobObject];
         
        
-       // largeBlobObject.blobSprite.position = ccp(100, winSize.height/2);
-       // smallBlobObject.blobSprite.position = ccp(40, 90);
-        
-        
-        
-       //[self addChild:largeBlobObject.blobSprite];
-       //[self addChild:smallBlobObject.blobSprite];
         
         
         //Creates a cadisplaylink timers that will update the display every time the screen refreshes
@@ -147,25 +140,7 @@
     
     if (arrayOfSprites.count != 0)
     {
-        /*
-        for (int i = 0; i < arrayOfSprites.count; i++)
-        {
-            Blobs *currentBlob = [arrayOfSprites objectAtIndex:i];
-            
-            [self removeChild:currentBlob.blobSprite];
-            [currentBlob updateModelWithTime:sender.timestamp];
-            
-            currentBlob.blobSprite.position = currentBlob.blobPosition;
-            [self addChild:currentBlob.blobSprite];
-            
-            NSLog(@"%f, %f", currentBlob.blobPosition.x, currentBlob.blobPosition.y);
-            
-            [self checkCollisionWithScreenEdges:currentBlob];
-            
-           
-            
-        }
-         */
+        
         
         for (Blobs *blob in arrayOfSprites)
         {
@@ -211,22 +186,7 @@
         if (CGRectContainsPoint(blob.blobSprite.boundingBox, location))
         {
             
-            /*
-            NSLog(@"Sprite Touched");
-            if(blob.blobTag ==1){
-                
-                [[SimpleAudioEngine sharedEngine] playEffect:@"splat.wav"];
-                
-            }
-            else if (blob.blobTag == 2)
-            {
-                [[SimpleAudioEngine sharedEngine] playEffect:@"zap.wav"];
-            }
-            else if (blob.blobTag == 0)
-            {
-                [[SimpleAudioEngine sharedEngine] playEffect:@"whoosh.m4a"];
-            }
-             */
+            
             
             swipedGlob = TRUE;
             
@@ -240,45 +200,7 @@
         }
     }
     
-    
-    /*
-    
-    for (CCSprite *blob in arrayOfSprites)
-    {
-        
-        if (CGRectContainsPoint(blob.boundingBox, location))
-        {
-           NSLog(@"Sprite Touched");
-            if(blob.tag==3){
-               
-                [[SimpleAudioEngine sharedEngine] playEffect:@"splat.wav"];
-                
-            }
-            else if (blob.tag == 4)
-            {
-                [[SimpleAudioEngine sharedEngine] playEffect:@"zap.wav"];
-            }
-            else if (blob.tag == 1)
-            {
-                [[SimpleAudioEngine sharedEngine] playEffect:@"whoosh.m4a"];
-            }
-            
-            swipedGlob = TRUE;
-            swipedGlobIndex = blob.tag;
-            
-            
-            
-            startingX = location.x;
-            startingY = location.y;
-            
-            
-            
-            
-            
-        }
-    }
-    
-    */
+   
 }
 
 
@@ -315,71 +237,6 @@
         }
         
         
-        
-        /*
-        selectedBlob.blobVelocity = ccp(-velocityX, -velocityY);
-        NSLog(@"%f, %f", selectedBlob.blobVelocity.x, selectedBlob.blobVelocity.y);
-        NSLog(@"%f, %f", selectedBlob.blobPosition.x, selectedBlob.blobPosition.y);
-        
-        */
-        
-        
-        
-        /*
-        for (CCSprite *blob in arrayOfSprites)
-        {
-            if (blob.tag == swipedGlobIndex)
-            {
-                
-                
-                CCMoveBy *swipedMove = [CCMoveBy actionWithDuration:1 position:ccp(-velocityX, -velocityY)];
-                
-                CCCallBlockN * encounteredScreenEdge = [CCCallBlockN actionWithBlock:^(CCNode *node)
-                                                        {
-                                                            if (blob.position.y  >= winSize.height)
-                                                            {
-                                                                NSLog(@"Hit at top");
-                                                                
-                                                                blob.position = ccp(100, 100);
-                                                                
-                                                                
-                                                                
-                                                                
-                                                                
-                                                                
-                                                            }
-                                                            else if (blob.position.y <= 0)
-                                                            {
-                                                                 NSLog(@"Hit bottom");
-                                                                blob.position = ccp(100, 100);
-                                                                 
-                                                            }
-                                                            else if (blob.position.x >= winSize.width)
-                                                            {
-                                                                 NSLog(@"Hit right");
-                                                                blob.position = ccp(100, 100);
-                                                                 
-                                                            }
-                                                            else if (blob.position.x <= 0)
-                                                            {
-                                                                 NSLog(@"hit left");
-                                                                blob.position = ccp(100, 100);
-                                                                 
-                                                            }
-                                                            
-                                                        }];
-                
-                CCSequence *sequence = [CCSequence actions:swipedMove, encounteredScreenEdge, nil];
-                
-               
-                
-                 CCRepeatForever *repeat = [CCRepeatForever actionWithAction:sequence];
-                
-               
-                [blob runAction:repeat];
-            }
-        }
-         */
         
         
         swipedGlob = FALSE;
@@ -446,12 +303,11 @@
 {
     if (CGRectIntersectsRect(blob.blobSprite.boundingBox, electricSprite.boundingBox))
     {
-       // [[SimpleAudioEngine sharedEngine] playEffect:@"splat.wav"];
-        
+               
         
         CGRect intersect = CGRectIntersection(blob.blobSprite.boundingBox, electricSprite.boundingBox);
         
-       // NSLog(@"intersection = %f, %f", intersect.origin.x, intersect.origin.y);
+       
         
         
         
