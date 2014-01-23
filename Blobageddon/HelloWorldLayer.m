@@ -28,8 +28,6 @@
 	// 'layer' is an autorelease object.
 	HelloWorldLayer *layer = [HelloWorldLayer node];
     
-   
-	
 	// add layer as a child to scene
 	[scene addChild: layer];
 	
@@ -52,48 +50,25 @@
         [[SimpleAudioEngine sharedEngine] preloadEffect:@"splat.wav"];
         [[SimpleAudioEngine sharedEngine] preloadEffect:@"whoosh.m4a"];
         
-        /*
-        CCSprite *largeBlob = [CCSprite spriteWithFile:@"sprite1.png"];
-        largeBlob.scale = 2.0f;
-        largeBlob.position = ccp(100, winSize.height/2);
-        largeBlob.tag = 1;
-       
-        [arrayOfSprites addObject:largeBlob];
-        
-        [self addChild:largeBlob];
-        
-        CCSprite *smallBlob = [CCSprite spriteWithFile:@"smallblob1.png"];
-        smallBlob.scale = 1.7f;
-        smallBlob.position = ccp(40, 90);
-        smallBlob.tag = 2;
-        [arrayOfSprites addObject:smallBlob];
-        
-        
-        [self addChild:smallBlob];
-        
-        CCSprite *splatBlob = [CCSprite spriteWithFile:@"splat1.png"];
-        
-        splatBlob.position = ccp(240, 190);
-        splatBlob.tag = 3;
-        [arrayOfSprites addObject:splatBlob];
-        
-        [self addChild:splatBlob];
-        
-        CCSprite *electric = [CCSprite spriteWithFile:@"electric.png"];
-        
-        electric.position = ccp(400, 230);
-        electric.tag = 4;
-        [arrayOfSprites addObject:electric];
-        
-        [self addChild:electric];
-        
-        [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"mediumzaps.wav"];
-        */
         self.touchEnabled = TRUE;
        
+        //SpriteAnimationStuff
+        [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"spriteanimated.plist"];
+        CCSpriteBatchNode *largeBlueBlobSpritesheet = [CCSpriteBatchNode batchNodeWithFile:@"spriteanimated.png"];
         
         
+        [self addChild:largeBlueBlobSpritesheet];
         
+        
+        NSMutableArray *largeSpriteAnim = [NSMutableArray array];
+        for (int i = 1;  i <= 3; i++)
+        {
+            [largeSpriteAnim addObject:[[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:
+                                        [NSString stringWithFormat:@"sprite%d.png", i]]];
+        }
+        
+        CCAnimation *largeBlueBlobAnimation = [CCAnimation animationWithSpriteFrames:largeSpriteAnim delay:0.1f];
+        CCRepeatForever * largeBlueBlobMovement = [CCRepeatForever actionWithAction:[CCAnimate actionWithAnimation:largeBlueBlobAnimation]];
         
         electricSprite = [CCSprite spriteWithFile:@"electric.png"];
         
@@ -106,26 +81,78 @@
         [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"mediumzaps.wav"];
         
         
+        pausePlayButton = [CCSprite spriteWithFile:@"pausebutton.png"];
+        pausePlayButton.position = ccp(winSize.width - (pausePlayButton.boundingBox.size.width * .3), 0 + (pausePlayButton.boundingBox.size.height * .3));
+        pausePlayButton.scale = .4;
+        [self addChild:pausePlayButton z:100];
+        pausePlay = FALSE;
         
         
+        loseButton = [CCSprite spriteWithFile:@"lose.png"];
+        loseButton.position = ccp(40, winSize.height/10 * 9);
+        loseButton.scale = .4;
+        [self addChild:loseButton];
         
         
         //Test with blob class
-        Blobs *largeBlobObject = [[Blobs alloc] initWithBlobType:0 blobSize:0 startTime:0.0 velocity:ccp(0,0) location:ccp(40, 90) blobInterract:TRUE tag:1];
+        Blobs *largeBlobObject = [[Blobs alloc] initWithBlobType:0 blobSize:0 startTime:0.0 velocity:ccp(0,0) location:ccp(40, 90) blobInterract:TRUE tag:1 appeared:TRUE];
         [arrayOfSprites addObject:largeBlobObject];
         
-        Blobs *smallBlobObject = [[Blobs alloc] initWithBlobType:0 blobSize:1 startTime:0.0 velocity:ccp(0, 0) location:ccp(100, winSize.height/2) blobInterract:TRUE tag:2];
+        Blobs *smallBlobObject = [[Blobs alloc] initWithBlobType:0 blobSize:1 startTime:0.0 velocity:ccp(0, 0) location:ccp(100, winSize.height/2) blobInterract:TRUE tag:2 appeared:TRUE];
         [arrayOfSprites addObject:smallBlobObject];
         
-       
+        Blobs *smallObject2 = [[Blobs alloc] initWithBlobType:0 blobSize:1 startTime:0.0 velocity:ccp(0, 0) location:ccp(175, winSize.height/2) blobInterract:TRUE tag:3 appeared:TRUE];
+        [arrayOfSprites addObject:smallObject2];
+        
+        
+        for (int i = 0; i < 5; i++)
+        {
+            Blobs *largeBlob = [[Blobs alloc] initWithBlobType:BLUE_GLOB blobSize:LARGE_GLOB startTime:0.0 velocity:ccp(0, 0) location:ccp(40, 90) blobInterract:TRUE tag:i + 5 appeared:FALSE];
+            
+            [arrayOfSprites addObject:largeBlob];
+            
+            Blobs *smallBlob = [[Blobs alloc] initWithBlobType:BLUE_GLOB blobSize:LARGE_GLOB startTime:0.0 velocity:ccp(0, 0) location:ccp(75, winSize.height/3) blobInterract:TRUE tag:i + 10 appeared:FALSE];
+            
+            [arrayOfSprites addObject:smallBlob];
+        }
+        
+        for (Blobs *blob in arrayOfSprites)
+        {
+           // blob.blobSprite.position = blob.blobPosition;
+            
+            if (blob.appeared == TRUE)
+            {
+                if (blob.blobSize == LARGE_GLOB)
+                {
+                    
+                    blob.blobSprite = [CCSprite spriteWithSpriteFrameName:@"sprite1.png"];
+                    blob.blobSprite.position = blob.blobPosition;
+                    [blob.blobSprite runAction:largeBlueBlobMovement];
+                    [largeBlueBlobSpritesheet addChild:blob.blobSprite];
+                    //[self addChild:blob.blobSprite];
+                }
+                else if (blob.blobSize == SMALL_GLOB)
+                {
+                    [self addChild:blob.blobSprite];
+                    blob.blobSprite.position = blob.blobPosition;
+                }
+            }
+            
+            
+        }
         
         
         //Creates a cadisplaylink timers that will update the display every time the screen refreshes
        gameTimer = [CADisplayLink displayLinkWithTarget:self selector:@selector(updateDisplay:)];
         
         //adds loop
-      [gameTimer addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+       [gameTimer addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
         
+        blobScore = 0;
+        
+        scoreLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"%d/10", blobScore] fontName: @"Courier" fontSize:20.0];
+        [scoreLabel setPosition:ccp(winSize.width - 40, winSize.height - 30)];
+        [self addChild:scoreLabel z:20];
         
     }
 		return self;
@@ -144,25 +171,32 @@
         
         for (Blobs *blob in arrayOfSprites)
         {
-            
-            [self removeChild:blob.blobSprite];
-            [blob updateModelWithTime:sender.timestamp];
-                
-                
-                
-            //blob.blobSprite.position = blob.blobPosition;
-                
-            blob.blobSprite.position = ccp(blob.blobPosition.x + blob.blobVelocity.x, blob.blobPosition.y + blob.blobVelocity.y);
-            blob.blobSprite.scale = 1.5;
-            [self addChild:blob.blobSprite];
-            [self checkCollisionWithScreenEdges:blob];
-                
-            if (blob.interactable == TRUE)
+            if (blob.appeared == TRUE)
             {
+                //[self removeChild:blob.blobSprite];
+                [blob updateModelWithTime:sender.timestamp];
                 
-                [self checkCollisionWithElectricity:blob];
+                
+                blob.blobSprite.position = ccp(blob.blobPosition.x + blob.blobVelocity.x, blob.blobPosition.y + blob.blobVelocity.y);
+                
+                if (blob.blobVelocity.x > blob.blobVelocity.y)
+                {
+                    blob.blobSprite.flipX = TRUE;
+                }
+                else if (blob.blobVelocity.y > blob.blobVelocity.x)
+                {
+                    blob.blobSprite.rotation = 90;
+                }
+                
+                [self checkCollisionWithScreenEdges:blob];
+                
+                if (blob.interactable == TRUE)
+                {
+                    
+                    [self checkCollisionWithElectricity:blob];
+                    [self checkCollisionWithOtherBlob:blob];
+                }
             }
-                
             
             
         }
@@ -179,26 +213,41 @@
     
     location = [[CCDirector sharedDirector] convertToGL:location];
     
-   
+    if (CGRectContainsPoint(pausePlayButton.boundingBox, location))
+    {
+        //If not paused
+        if (!pausePlay)
+        {
+            [self pauseOrResume];
+        }
+        else if (pausePlay)
+        {
+            [self pauseOrResume];
+        }
+    }
+    
+    if (CGRectContainsPoint(loseButton.boundingBox, location))
+    {
+        [self winLoseGame:FALSE];
+    }
+    
     
     for (Blobs *blob in arrayOfSprites)
     {
         if (CGRectContainsPoint(blob.blobSprite.boundingBox, location))
         {
             
-            
-            
             swipedGlob = TRUE;
-            
             
             //selectedBlob = blob;
             swipedGlobIndex = blob.blobTag;
-            
             
             startingX = location.x;
             startingY = location.y;
         }
     }
+    
+    
     
    
 }
@@ -237,8 +286,6 @@
         }
         
         
-        
-        
         swipedGlob = FALSE;
         
         selectedBlob = nil;
@@ -257,11 +304,6 @@
         CGFloat y = blob.blobVelocity.y;
         
         blob.blobVelocity = ccp(x, -1 * abs(y));
-        
-        
-        
-        
-        
         
         
     }
@@ -307,14 +349,8 @@
         
         CGRect intersect = CGRectIntersection(blob.blobSprite.boundingBox, electricSprite.boundingBox);
         
-       
-        
-        
-        
         float yIntersect = intersect.origin.y;
         float xIntersect = intersect.origin.x;
-        
-        
         
         //Hit the top
         if (yIntersect + 5 >= electricSprite.boundingBox.size.height + electricSprite.boundingBox.origin.y)
@@ -322,8 +358,8 @@
             NSLog(@"hit the top");
             [[SimpleAudioEngine sharedEngine] playEffect:@"splat.wav"];
             
-            [self removeChild:blob.blobSprite];
-            blob.blobSprite.scale = 1.5;
+          
+           
             //blob.blobSprite.position = ccp(blob.blobPosition.x + blob.blobVelocity.x, blob.blobPosition.y + blob.blobVelocity.y + 25);
             blob.blobVelocity = ccp(blob.blobVelocity.x, abs(blob.blobVelocity.y));
             
@@ -331,7 +367,7 @@
             
             [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(changeInteraction:) userInfo:blob repeats:FALSE];
             
-            [self addChild:blob.blobSprite];
+          
             
             
         }
@@ -339,8 +375,7 @@
         else if (yIntersect - 5 <= electricSprite.boundingBox.origin.y)
         {
             [[SimpleAudioEngine sharedEngine] playEffect:@"splat.wav"];
-            [self removeChild:blob.blobSprite];
-            blob.blobSprite.scale = 1.5;
+            
             //blob.blobSprite.position = ccp(blob.blobPosition.x + blob.blobVelocity.x, blob.blobPosition.y + blob.blobVelocity.y + 25);
             blob.blobVelocity = ccp(blob.blobVelocity.x, -1* abs(blob.blobVelocity.y));
             
@@ -348,7 +383,7 @@
             
             [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(changeInteraction:) userInfo:blob repeats:FALSE];
             
-            [self addChild:blob.blobSprite];
+          
             
         }
         //Hit the left
@@ -356,8 +391,7 @@
         {
             [[SimpleAudioEngine sharedEngine] playEffect:@"splat.wav"];
             NSLog(@"hit the left");
-            [self removeChild:blob.blobSprite];
-            blob.blobSprite.scale = 1.5;
+           
             //blob.blobSprite.position = ccp(blob.blobPosition.x + blob.blobVelocity.x, blob.blobPosition.y + blob.blobVelocity.y + 25);
             blob.blobVelocity = ccp(-1 * abs(blob.blobVelocity.x), blob.blobVelocity.y);
             
@@ -365,15 +399,12 @@
             
             [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(changeInteraction:) userInfo:blob repeats:FALSE];
             
-            [self addChild:blob.blobSprite];
         }
         //Hit the right
         else 
         {
             [[SimpleAudioEngine sharedEngine] playEffect:@"splat.wav"];
             
-            [self removeChild:blob.blobSprite];
-            blob.blobSprite.scale = 1.5;
             //blob.blobSprite.position = ccp(blob.blobPosition.x + blob.blobVelocity.x, blob.blobPosition.y + blob.blobVelocity.y + 25);
             blob.blobVelocity = ccp(abs(blob.blobVelocity.x), blob.blobVelocity.y);
             
@@ -381,14 +412,86 @@
             
             [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(changeInteraction:) userInfo:blob repeats:FALSE];
             
-            [self addChild:blob.blobSprite];
+           
+        }
+        
+        blobScore ++;
+        [scoreLabel setString:[NSString stringWithFormat:@"%d/10", blobScore]];
+        
+        if (blobScore == 10)
+        {
+            [self winLoseGame:TRUE];
         }
         
         
+    }
+}
+
+-(void)checkCollisionWithOtherBlob: (Blobs *)blob
+{
+    
+    for (int i = 0; i < arrayOfSprites.count; i++)
+    {
+        Blobs *comparedBlob = [arrayOfSprites objectAtIndex:i];
         
-        
+        if (comparedBlob.appeared == FALSE)
+        {
+            return;
+        }
+        else
+        {
+            if (comparedBlob != blob && CGRectIntersectsRect(blob.blobSprite.boundingBox, comparedBlob.blobSprite.boundingBox))
+            {
+                NSLog(@"blobs intersected");
+                
+                if (comparedBlob.interactable == FALSE || blob.interactable == FALSE)
+                {
+                    return;
+                }
+                else if (blob.blobSize == SMALL_GLOB && comparedBlob.blobSize == SMALL_GLOB)
+                {
+                    CGPoint blob1Velocity = blob.blobVelocity;
+                    CGPoint blob2Velocity = comparedBlob.blobVelocity;
+                    
+                    
+                    int minX = MIN(blob1Velocity.x, blob2Velocity.x);
+                    int maxX = MAX(blob1Velocity.x, blob1Velocity.x);
+                    
+                    int minY = MIN(blob1Velocity.y, blob2Velocity.y);
+                    int maxY = MAX(blob1Velocity.y, blob2Velocity.y);
+                    
+                    CGPoint newVelocity = ccp((maxX - minX) / 2, (maxY - minY) / 2);
+                    
+                    NSLog(@"min x = %d, max x = %d, min y = %d, max y = %d", minX, maxX, minY, maxY);
+                    
+                    for (int j = 0; j < arrayOfSprites.count; j++)
+                    {
+                        Blobs *newGlob = [arrayOfSprites objectAtIndex:j];
+                        if (newGlob.appeared == FALSE && newGlob.blobSize == LARGE_GLOB)
+                        {
+                            blob.appeared = FALSE;
+                            comparedBlob.appeared = FALSE;
+                            [self removeChild:blob.blobSprite];
+                            [self removeChild:comparedBlob.blobSprite];
+                            
+                            newGlob.blobPosition = comparedBlob.blobPosition;
+                            newGlob.blobVelocity = newVelocity;
+                            
+                            newGlob.appeared = TRUE;
+                            [self addChild:newGlob.blobSprite];
+                            return;
+                        }
+                    }
+                }
+                else
+                {
+                    
+                }
+            }
+        }
         
     }
+    
 }
 
 
@@ -397,6 +500,75 @@
     Blobs *blob = [blobTimer userInfo];
     blob.interactable = TRUE;
     
+}
+
+-(void)pauseOrResume
+{
+    
+   if (!pausePlay)
+   {
+       [[CCDirector sharedDirector] stopAnimation];
+       [[CCDirector sharedDirector] pause];
+       
+       [gameTimer invalidate];
+       
+       
+       gameTimer.paused = TRUE;
+       
+       pausePlay = TRUE;
+   }
+    else if (pausePlay)
+    {
+        [[CCDirector sharedDirector] stopAnimation]; // call this to make sure you don't start a second display link!
+        [[CCDirector sharedDirector] resume];
+        [[CCDirector sharedDirector] startAnimation];
+        
+         gameTimer = [CADisplayLink displayLinkWithTarget:self selector:@selector(updateDisplay:)];
+        [gameTimer addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+        
+        gameTimer.paused = FALSE;
+        pausePlay = FALSE;
+    }
+    
+}
+
+- (void) applicationDidEnterBackground:(UIApplication *)application
+{
+    
+    pausePlay = FALSE;
+    [self pauseOrResume];
+}
+- (void)applicationWillResignActive:(UIApplication *)application
+{
+    pausePlay = FALSE;
+    [self pauseOrResume];
+}
+
+- (void)applicationDidBecomeActive:(UIApplication *)application
+{
+    pausePlay = TRUE;
+    [self pauseOrResume];
+}
+
+-(void) winLoseGame: (BOOL)win
+{
+    
+    if (win)
+    {
+        CCLabelTTF *winLabel = [CCLabelTTF labelWithString:@"YOU WIN!" fontName:@"Courier" fontSize:36.0];
+        [winLabel setPosition:ccp(winSize.width/2, winSize.height/2)];
+        [self addChild:winLabel z:20];
+        
+        [gameTimer invalidate];
+        //[[CCDirector sharedDirector] stopAnimation];
+    }
+    else if (!win)
+    {
+        CCLabelTTF *winLabel = [CCLabelTTF labelWithString:@"YOU LOSE!" fontName:@"Courier" fontSize:36.0];
+        [winLabel setPosition:ccp(winSize.width/2, winSize.height/2)];
+        [self addChild:winLabel z:20];
+        [gameTimer invalidate];
+    }
 }
 
 

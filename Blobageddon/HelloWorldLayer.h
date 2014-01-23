@@ -36,6 +36,17 @@
     CGSize winSize;
     
     CCSprite *electricSprite;
+    
+    CCSprite *pausePlayButton;
+    CCSprite *loseButton;
+    BOOL pausePlay;
+    
+    int blobScore;
+    
+    
+    CCLabelTTF *scoreLabel;
+    
+    
 }
 
 // returns a CCScene that contains the HelloWorldLayer as the only child

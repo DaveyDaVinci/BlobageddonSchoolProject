@@ -157,6 +157,15 @@
 		CF2C98B91880B62B00689346 /* zap.wav in Resources */ = {isa = PBXBuildFile; fileRef = CF2C98B71880B62B00689346 /* zap.wav */; };
 		CF2C98BB1880B6ED00689346 /* electric.png in Resources */ = {isa = PBXBuildFile; fileRef = CF2C98BA1880B6ED00689346 /* electric.png */; };
 		CF2C98BD1880BA2100689346 /* whoosh.m4a in Resources */ = {isa = PBXBuildFile; fileRef = CF2C98BC1880BA2100689346 /* whoosh.m4a */; };
+		CF4EAB5B188CB9B200C426FE /* pausebutton.png in Resources */ = {isa = PBXBuildFile; fileRef = CF4EAB59188CB9B200C426FE /* pausebutton.png */; };
+		CF4EAB5C188CB9B200C426FE /* playbutton.png in Resources */ = {isa = PBXBuildFile; fileRef = CF4EAB5A188CB9B200C426FE /* playbutton.png */; };
+		CF4EAB63188DC0C900C426FE /* spriteanimated-hd.plist in Resources */ = {isa = PBXBuildFile; fileRef = CF4EAB5D188DC0C900C426FE /* spriteanimated-hd.plist */; };
+		CF4EAB64188DC0C900C426FE /* spriteanimated-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = CF4EAB5E188DC0C900C426FE /* spriteanimated-hd.png */; };
+		CF4EAB65188DC0C900C426FE /* spriteanimated-ipadhd.plist in Resources */ = {isa = PBXBuildFile; fileRef = CF4EAB5F188DC0C900C426FE /* spriteanimated-ipadhd.plist */; };
+		CF4EAB66188DC0C900C426FE /* spriteanimated-ipadhd.png in Resources */ = {isa = PBXBuildFile; fileRef = CF4EAB60188DC0C900C426FE /* spriteanimated-ipadhd.png */; };
+		CF4EAB67188DC0C900C426FE /* spriteanimated.plist in Resources */ = {isa = PBXBuildFile; fileRef = CF4EAB61188DC0C900C426FE /* spriteanimated.plist */; };
+		CF4EAB68188DC0C900C426FE /* spriteanimated.png in Resources */ = {isa = PBXBuildFile; fileRef = CF4EAB62188DC0C900C426FE /* spriteanimated.png */; };
+		CF4EAB6A1891BB8000C426FE /* lose.png in Resources */ = {isa = PBXBuildFile; fileRef = CF4EAB691891BB8000C426FE /* lose.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -458,6 +467,15 @@
 		CF2C98B71880B62B00689346 /* zap.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = zap.wav; sourceTree = "<group>"; };
 		CF2C98BA1880B6ED00689346 /* electric.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = electric.png; sourceTree = "<group>"; };
 		CF2C98BC1880BA2100689346 /* whoosh.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = whoosh.m4a; sourceTree = "<group>"; };
+		CF4EAB59188CB9B200C426FE /* pausebutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pausebutton.png; sourceTree = "<group>"; };
+		CF4EAB5A188CB9B200C426FE /* playbutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = playbutton.png; sourceTree = "<group>"; };
+		CF4EAB5D188DC0C900C426FE /* spriteanimated-hd.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "spriteanimated-hd.plist"; sourceTree = "<group>"; };
+		CF4EAB5E188DC0C900C426FE /* spriteanimated-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "spriteanimated-hd.png"; sourceTree = "<group>"; };
+		CF4EAB5F188DC0C900C426FE /* spriteanimated-ipadhd.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "spriteanimated-ipadhd.plist"; sourceTree = "<group>"; };
+		CF4EAB60188DC0C900C426FE /* spriteanimated-ipadhd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "spriteanimated-ipadhd.png"; sourceTree = "<group>"; };
+		CF4EAB61188DC0C900C426FE /* spriteanimated.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = spriteanimated.plist; sourceTree = "<group>"; };
+		CF4EAB62188DC0C900C426FE /* spriteanimated.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spriteanimated.png; sourceTree = "<group>"; };
+		CF4EAB691891BB8000C426FE /* lose.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lose.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -931,6 +949,15 @@
 		CFA40DC71886090A00398736 /* sprites */ = {
 			isa = PBXGroup;
 			children = (
+				CF4EAB691891BB8000C426FE /* lose.png */,
+				CF4EAB5D188DC0C900C426FE /* spriteanimated-hd.plist */,
+				CF4EAB5E188DC0C900C426FE /* spriteanimated-hd.png */,
+				CF4EAB5F188DC0C900C426FE /* spriteanimated-ipadhd.plist */,
+				CF4EAB60188DC0C900C426FE /* spriteanimated-ipadhd.png */,
+				CF4EAB61188DC0C900C426FE /* spriteanimated.plist */,
+				CF4EAB62188DC0C900C426FE /* spriteanimated.png */,
+				CF4EAB59188CB9B200C426FE /* pausebutton.png */,
+				CF4EAB5A188CB9B200C426FE /* playbutton.png */,
 				CF2C98BA1880B6ED00689346 /* electric.png */,
 				CF2C98AC1880309900689346 /* splat1.png */,
 				CF2C98AD1880309900689346 /* splat2.png */,
@@ -1031,6 +1058,15 @@
 				CF2C98B91880B62B00689346 /* zap.wav in Resources */,
 				CF2C98BB1880B6ED00689346 /* electric.png in Resources */,
 				CF2C98BD1880BA2100689346 /* whoosh.m4a in Resources */,
+				CF4EAB5B188CB9B200C426FE /* pausebutton.png in Resources */,
+				CF4EAB5C188CB9B200C426FE /* playbutton.png in Resources */,
+				CF4EAB63188DC0C900C426FE /* spriteanimated-hd.plist in Resources */,
+				CF4EAB64188DC0C900C426FE /* spriteanimated-hd.png in Resources */,
+				CF4EAB65188DC0C900C426FE /* spriteanimated-ipadhd.plist in Resources */,
+				CF4EAB66188DC0C900C426FE /* spriteanimated-ipadhd.png in Resources */,
+				CF4EAB67188DC0C900C426FE /* spriteanimated.plist in Resources */,
+				CF4EAB68188DC0C900C426FE /* spriteanimated.png in Resources */,
+				CF4EAB6A1891BB8000C426FE /* lose.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1211,12 +1247,14 @@
 				GCC_PREFIX_HEADER = Blobageddon/Prefix.pch;
 				HEADER_SEARCH_PATHS = "\"Blobageddon/libs/kazmath/include\"";
 				INFOPLIST_FILE = Blobageddon/Resources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				OTHER_LDFLAGS = (
 					"-lz",
 					"-lsqlite3",
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1231,12 +1269,14 @@
 				GCC_PREFIX_HEADER = Blobageddon/Prefix.pch;
 				HEADER_SEARCH_PATHS = "\"Blobageddon/libs/kazmath/include\"";
 				INFOPLIST_FILE = Blobageddon/Resources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				OTHER_LDFLAGS = (
 					"-lz",
 					"-lsqlite3",
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
 			};

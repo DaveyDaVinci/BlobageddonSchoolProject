@@ -9,18 +9,16 @@
 #import "Blobs.h"
 
 @implementation Blobs
-@synthesize blobSize, blobSprite, blobType, blobVelocity, interactable, blobTag, blobPosition;
+@synthesize blobSize, blobSprite, blobType, blobVelocity, interactable, blobTag, blobPosition, appeared;
 
 
--(id) initWithBlobType:(int)type blobSize:(int)size startTime:(CGFloat)time velocity:(CGPoint)velocity location:(CGPoint)location blobInterract:(BOOL)interract tag:(int)tag
+-(id) initWithBlobType:(int)type blobSize:(int)size startTime:(CGFloat)time velocity:(CGPoint)velocity location:(CGPoint)location blobInterract:(BOOL)interract tag:(int)tag appeared:(BOOL)appear
 {
     
     self = [super init];
     
     if (self)
-    {
-        
-        
+    { 
         blobTag = tag;
         blobType = type;
         blobSize = size;
@@ -28,12 +26,9 @@
         blobVelocity = velocity;
         interactable = interract;
         blobPosition = location;
+        appeared = appear;
         
         blobSprite = [self blobView];
-        
-        
-        
-        
         
     }
     
@@ -63,45 +58,9 @@
 
 -(void) updateModelWithTime:(CFTimeInterval)timeStamp 
 {
-    
-    
-    /*
-    if (lastTime == 0.0)
-    {
-        lastTime = timeStamp;
-        
-    }
-    else
-    {
-        timeDelta = timeStamp - lastTime;
-        
-        lastTime = timeStamp;
-        
-        CGFloat x = blobVelocity.x;
-        CGFloat y = blobVelocity.y;
-        
-        blobVelocity.x += x * timeDelta;
-        blobVelocity.y += y * timeDelta;
-        
-       // blobVelocity = ccp(blobVelocity.x * timeDelta/100, blobVelocity.y * timeDelta/100);
-       
-        
-    }
-     */
+  
     blobPosition = ccp(blobPosition.x + blobVelocity.x, blobPosition.y + blobVelocity.y);
-    
-   // NSLog(@"%f, %f", blobLocation.x, blobLocation.y);
-        
-        
-        
-        
-        
-        
-        
-
-    
-    
-    
+     
 }
 
 
