@@ -23,6 +23,8 @@
 {
     NSMutableArray *arrayOfSprites;
     
+    NSMutableArray *largeSpriteAnim;
+    
     BOOL swipedGlob;
     int swipedGlobIndex;
     
@@ -45,6 +47,8 @@
     
     
     CCLabelTTF *scoreLabel;
+    
+    CCSpriteBatchNode *largeSpritesheet;
     
     
 }

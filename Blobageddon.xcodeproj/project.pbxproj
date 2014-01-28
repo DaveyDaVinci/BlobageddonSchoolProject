@@ -17,10 +17,6 @@
 		CF2C96ED187DE9C900689346 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF2C96EC187DE9C900689346 /* CoreGraphics.framework */; };
 		CF2C96EF187DE9C900689346 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF2C96EE187DE9C900689346 /* CoreText.framework */; };
 		CF2C96F1187DE9C900689346 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF2C96F0187DE9C900689346 /* GameKit.framework */; };
-		CF2C96F5187DE9C900689346 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = CF2C96F4187DE9C900689346 /* Default.png */; };
-		CF2C96F7187DE9C900689346 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CF2C96F6187DE9C900689346 /* Default@2x.png */; };
-		CF2C96F9187DE9C900689346 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CF2C96F8187DE9C900689346 /* Default-568h@2x.png */; };
-		CF2C96FB187DE9C900689346 /* Default-Landscape~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = CF2C96FA187DE9C900689346 /* Default-Landscape~ipad.png */; };
 		CF2C96FD187DE9C900689346 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = CF2C96FC187DE9C900689346 /* Icon-72.png */; };
 		CF2C96FF187DE9C900689346 /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = CF2C96FE187DE9C900689346 /* Icon-Small-50.png */; };
 		CF2C9701187DE9C900689346 /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = CF2C9700187DE9C900689346 /* Icon-Small.png */; };
@@ -166,6 +162,10 @@
 		CF4EAB67188DC0C900C426FE /* spriteanimated.plist in Resources */ = {isa = PBXBuildFile; fileRef = CF4EAB61188DC0C900C426FE /* spriteanimated.plist */; };
 		CF4EAB68188DC0C900C426FE /* spriteanimated.png in Resources */ = {isa = PBXBuildFile; fileRef = CF4EAB62188DC0C900C426FE /* spriteanimated.png */; };
 		CF4EAB6A1891BB8000C426FE /* lose.png in Resources */ = {isa = PBXBuildFile; fileRef = CF4EAB691891BB8000C426FE /* lose.png */; };
+		CF4EAB6C1897B5E100C426FE /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = CF4EAB6B1897B5E100C426FE /* Default.png */; };
+		CF4EAB6E1897B5EE00C426FE /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CF4EAB6D1897B5EE00C426FE /* Default@2x.png */; };
+		CF4EAB701897B5FE00C426FE /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CF4EAB6F1897B5FE00C426FE /* Default-568h@2x.png */; };
+		CF4EAB731897B70D00C426FE /* LaunchLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = CF4EAB721897B70D00C426FE /* LaunchLayer.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -476,6 +476,11 @@
 		CF4EAB61188DC0C900C426FE /* spriteanimated.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = spriteanimated.plist; sourceTree = "<group>"; };
 		CF4EAB62188DC0C900C426FE /* spriteanimated.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spriteanimated.png; sourceTree = "<group>"; };
 		CF4EAB691891BB8000C426FE /* lose.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lose.png; sourceTree = "<group>"; };
+		CF4EAB6B1897B5E100C426FE /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		CF4EAB6D1897B5EE00C426FE /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		CF4EAB6F1897B5FE00C426FE /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		CF4EAB711897B70D00C426FE /* LaunchLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LaunchLayer.h; sourceTree = "<group>"; };
+		CF4EAB721897B70D00C426FE /* LaunchLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LaunchLayer.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -502,6 +507,9 @@
 		CF2C96D2187DE9C900689346 = {
 			isa = PBXGroup;
 			children = (
+				CF4EAB6F1897B5FE00C426FE /* Default-568h@2x.png */,
+				CF4EAB6D1897B5EE00C426FE /* Default@2x.png */,
+				CF4EAB6B1897B5E100C426FE /* Default.png */,
 				CF2C96F2187DE9C900689346 /* Blobageddon */,
 				CF2C96DD187DE9C900689346 /* Frameworks */,
 				CF2C96DC187DE9C900689346 /* Products */,
@@ -544,6 +552,8 @@
 				CF2C9887187DE9CB00689346 /* HelloWorldLayer.m */,
 				CF2C9889187DE9CB00689346 /* IntroLayer.h */,
 				CF2C988A187DE9CB00689346 /* IntroLayer.m */,
+				CF4EAB711897B70D00C426FE /* LaunchLayer.h */,
+				CF4EAB721897B70D00C426FE /* LaunchLayer.m */,
 				CF2C96F3187DE9C900689346 /* Resources */,
 				CF2C970B187DE9C900689346 /* libs */,
 				CF2C987F187DE9CB00689346 /* Supporting Files */,
@@ -1031,10 +1041,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CF2C96F5187DE9C900689346 /* Default.png in Resources */,
-				CF2C96F7187DE9C900689346 /* Default@2x.png in Resources */,
-				CF2C96F9187DE9C900689346 /* Default-568h@2x.png in Resources */,
-				CF2C96FB187DE9C900689346 /* Default-Landscape~ipad.png in Resources */,
 				CF2C96FD187DE9C900689346 /* Icon-72.png in Resources */,
 				CF2C96FF187DE9C900689346 /* Icon-Small-50.png in Resources */,
 				CF2C9701187DE9C900689346 /* Icon-Small.png in Resources */,
@@ -1067,6 +1073,9 @@
 				CF4EAB67188DC0C900C426FE /* spriteanimated.plist in Resources */,
 				CF4EAB68188DC0C900C426FE /* spriteanimated.png in Resources */,
 				CF4EAB6A1891BB8000C426FE /* lose.png in Resources */,
+				CF4EAB6C1897B5E100C426FE /* Default.png in Resources */,
+				CF4EAB6E1897B5EE00C426FE /* Default@2x.png in Resources */,
+				CF4EAB701897B5FE00C426FE /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1190,6 +1199,7 @@
 				CF2C9888187DE9CB00689346 /* HelloWorldLayer.m in Sources */,
 				CF2C988B187DE9CB00689346 /* IntroLayer.m in Sources */,
 				CF2C989318801CBF00689346 /* Blobs.m in Sources */,
+				CF4EAB731897B70D00C426FE /* LaunchLayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
