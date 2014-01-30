@@ -54,14 +54,11 @@
        
         //SpriteAnimationStuff
         [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"spriteanimated.plist"];
-       // CCSpriteBatchNode *largeBlueBlobSpritesheet = [CCSpriteBatchNode batchNodeWithFile:@"spriteanimated.png"];
+      
         
         largeSpritesheet = [CCSpriteBatchNode batchNodeWithFile:@"spriteanimated.png"];
         [self addChild:largeSpritesheet];
-       // [self addChild:largeBlueBlobSpritesheet];
-        
-        
-       // NSMutableArray *largeSpriteAnim = [NSMutableArray array];
+      
         
         largeSpriteAnim = [NSMutableArray array];
         for (int i = 1;  i <= 3; i++)
@@ -96,18 +93,6 @@
         [self addChild:loseButton z:100];
         
         
-        /*
-        //Test with blob class
-        Blobs *largeBlobObject = [[Blobs alloc] initWithBlobType:0 blobSize:0 startTime:0.0 velocity:ccp(0,0) location:ccp(40, 90) blobInterract:TRUE tag:1 appeared:TRUE];
-        [arrayOfSprites addObject:largeBlobObject];
-        
-        Blobs *smallBlobObject = [[Blobs alloc] initWithBlobType:0 blobSize:1 startTime:0.0 velocity:ccp(0, 0) location:ccp(100, winSize.height/2) blobInterract:TRUE tag:2 appeared:TRUE];
-        [arrayOfSprites addObject:smallBlobObject];
-        
-        Blobs *smallObject2 = [[Blobs alloc] initWithBlobType:0 blobSize:1 startTime:0.0 velocity:ccp(0, 0) location:ccp(175, winSize.height/2) blobInterract:TRUE tag:3 appeared:TRUE];
-        [arrayOfSprites addObject:smallObject2];
-        */
-        
         for (int i = 0; i < 50; i++)
         {
             Blobs *largeBlob = [[Blobs alloc] initWithBlobType:BLUE_GLOB blobSize:LARGE_GLOB startTime:0.0 velocity:ccp(0, 0) location:ccp(40, 90) blobInterract:TRUE tag:i appeared:FALSE];
@@ -127,20 +112,15 @@
                 
                  largeBlob.blobPosition = ccp(randomX, randomY);
                 
-                
-                
                
             }
             
             [arrayOfSprites addObject:largeBlob];
         }
         
-        
-        
         for (Blobs *blob in arrayOfSprites)
         {
-           // blob.blobSprite.position = blob.blobPosition;
-            
+          
             if (blob.appeared == TRUE)
             {
                 if (blob.blobSize == LARGE_GLOB)
@@ -151,9 +131,8 @@
                     CCAnimation *largeBlueBlobAnimation = [CCAnimation animationWithSpriteFrames:largeSpriteAnim delay:0.1f];
                     CCRepeatForever * largeBlueBlobMovement = [CCRepeatForever actionWithAction:[CCAnimate actionWithAnimation:largeBlueBlobAnimation]];
                     [blob.blobSprite runAction:largeBlueBlobMovement];
-                   // [largeBlueBlobSpritesheet addChild:blob.blobSprite];
                     [largeSpritesheet addChild:blob.blobSprite];
-                    //[self addChild:blob.blobSprite];
+                  
                 }
                 else if (blob.blobSize == SMALL_GLOB)
                 {
@@ -199,7 +178,6 @@
             {
                 //[self removeChild:blob.blobSprite];
                 [blob updateModelWithTime:sender.timestamp];
-                
                 
                 blob.blobSprite.position = ccp(blob.blobPosition.x + blob.blobVelocity.x, blob.blobPosition.y + blob.blobVelocity.y);
                 
@@ -263,7 +241,6 @@
             
             swipedGlob = TRUE;
             
-            //selectedBlob = blob;
             swipedGlobIndex = blob.blobTag;
             
             startingX = location.x;
@@ -286,8 +263,6 @@
 {
     if (swipedGlob == TRUE)
     {
-       // CGSize winSize = [[CCDirector sharedDirector] winSize];
-        
         UITouch *touch = [touches anyObject];
         CGPoint location = [touch locationInView:[touch view]];
         
@@ -397,58 +372,6 @@
                 [self determineSpriteDirection:ccp(blob.blobVelocity.x, - 1 * blob.blobVelocity.y) position:blob.blobPosition];
                 [self determineSpriteDirection:ccp(-1 * blob.blobVelocity.x, -1 * blob.blobVelocity.y) position:blob.blobPosition];
                 
-                
-                
-                
-                
-                //OLD CODE WILL DELETE LATER
-                
-                /*
-                for (int i = 0; i < arrayOfSprites.count; i++)
-                {
-                    Blobs *tempblob = [arrayOfSprites objectAtIndex:i];
-                    if (tempblob.blobType == BLUE_GLOB && tempblob.blobSize == SMALL_GLOB && tempblob.appeared == FALSE)
-                    {
-                        smallBlob1 = tempblob;
-                        tempblob.appeared = TRUE;
-                        break;
-                    }
-                   
-                }
-                for (int i = 0; i < arrayOfSprites.count; i++)
-                {
-                    Blobs *tempblob = [arrayOfSprites objectAtIndex:i];
-                    if (tempblob.blobType == BLUE_GLOB && tempblob.blobSize == SMALL_GLOB && tempblob.appeared == FALSE)
-                    {
-                        smallBlob2 = tempblob;
-                        tempblob.appeared = TRUE;
-                        break;
-                    }
-                    
-                }
-                
-                [self addChild:smallBlob1.blobSprite];
-                [self addChild:smallBlob2.blobSprite];
-                
-                
-                
-                smallBlob1.blobVelocity = ccp(blob.blobVelocity.x, - 1 * blob.blobVelocity.y);
-                smallBlob2.blobVelocity = ccp(-1 * blob.blobVelocity.x, -1 * blob.blobVelocity.y);
-                
-                
-                
-                smallBlob1.blobPosition = blob.blobPosition;
-                smallBlob2.blobPosition = blob.blobPosition;
-                
-                smallBlob1.interactable = FALSE;
-                smallBlob2.interactable = FALSE;
-                
-                [NSTimer scheduledTimerWithTimeInterval:.5 target:self selector:@selector(changeInteraction:) userInfo:smallBlob1 repeats:FALSE];
-                [NSTimer scheduledTimerWithTimeInterval:.5 target:self selector:@selector(changeInteraction:) userInfo:smallBlob2 repeats:FALSE];
-                */
-                
-                
-                 
             }
             else
             {
@@ -456,23 +379,6 @@
                 blob.appeared = FALSE;
                 blobScore ++;
             }
-            
-            //OLD CODE WILL DELETE LATER
-            /*
-            NSLog(@"hit the top");
-            [[SimpleAudioEngine sharedEngine] playEffect:@"splat.wav"];
-            
-          
-           
-            //blob.blobSprite.position = ccp(blob.blobPosition.x + blob.blobVelocity.x, blob.blobPosition.y + blob.blobVelocity.y + 25);
-            blob.blobVelocity = ccp(blob.blobVelocity.x, abs(blob.blobVelocity.y));
-            
-            blob.interactable = FALSE;
-            
-            [NSTimer scheduledTimerWithTimeInterval:.5 target:self selector:@selector(changeInteraction:) userInfo:blob repeats:FALSE];
-            
-          */
-            
             
         }
         //Hit the bottom
@@ -495,15 +401,7 @@
                 blob.appeared = FALSE;
                 blobScore ++;
             }
-            
-            /*
-            //blob.blobSprite.position = ccp(blob.blobPosition.x + blob.blobVelocity.x, blob.blobPosition.y + blob.blobVelocity.y + 25);
-            blob.blobVelocity = ccp(blob.blobVelocity.x, -1* abs(blob.blobVelocity.y));
-            
-            blob.interactable = FALSE;
-            
-            [NSTimer scheduledTimerWithTimeInterval:.5 target:self selector:@selector(changeInteraction:) userInfo:blob repeats:FALSE];
-            */
+           
           
             
         }
@@ -529,21 +427,12 @@
                 blobScore ++;
             }
            
-            /*
-            //blob.blobSprite.position = ccp(blob.blobPosition.x + blob.blobVelocity.x, blob.blobPosition.y + blob.blobVelocity.y + 25);
-            blob.blobVelocity = ccp(-1 * abs(blob.blobVelocity.x), blob.blobVelocity.y);
-            
-            blob.interactable = FALSE;
-            
-            [NSTimer scheduledTimerWithTimeInterval:.5 target:self selector:@selector(changeInteraction:) userInfo:blob repeats:FALSE];
-             */
-            
         }
         //Hit the right
         else 
         {
             [[SimpleAudioEngine sharedEngine] playEffect:@"splat.wav"];
-           // NSLog(@"hit the left");
+          
             if (blob.blobSize == LARGE_GLOB)
             {
                 [self removeChild:blob.blobSprite];
@@ -560,17 +449,7 @@
                 blob.appeared = FALSE;
                 blobScore ++;
             }
-            
-            /*
-            [[SimpleAudioEngine sharedEngine] playEffect:@"splat.wav"];
-            
-            //blob.blobSprite.position = ccp(blob.blobPosition.x + blob.blobVelocity.x, blob.blobPosition.y + blob.blobVelocity.y + 25);
-            blob.blobVelocity = ccp(abs(blob.blobVelocity.x), blob.blobVelocity.y);
-            
-            blob.interactable = FALSE;
-            
-            [NSTimer scheduledTimerWithTimeInterval:.5 target:self selector:@selector(changeInteraction:) userInfo:blob repeats:FALSE];
-            */
+           
            
         }
         
@@ -601,8 +480,7 @@
         {
             if (comparedBlob != blob && CGRectIntersectsRect(blob.blobSprite.boundingBox, comparedBlob.blobSprite.boundingBox))
             {
-               // NSLog(@"blobs intersected");
-                
+                               
                 if (comparedBlob.interactable == FALSE || blob.interactable == FALSE)
                 {
                     return;
@@ -619,12 +497,7 @@
                     int minY = MIN(blob1Velocity.y, blob2Velocity.y);
                     int maxY = MAX(blob1Velocity.y, blob2Velocity.y);
                     
-                   // CGPoint newVelocity = ccp((maxX - minX) / 2, (maxY - minY) / 2);
-                    
                     CGPoint newVelocity = ccp((maxX - minX)/2, (maxY - minY)/2);
-                    
-                 //   NSLog(@"min x = %d, max x = %d, min y = %d, max y = %d", minX, maxX, minY, maxY);
-                    
                                         
                     for (Blobs *newGlob in arrayOfSprites)
                     {
@@ -640,8 +513,6 @@
                             
                             newGlob.appeared = TRUE;
                             
-                            
-                            //[self addChild:newGlob.blobSprite];
                             newGlob.blobSprite = [CCSprite spriteWithSpriteFrameName:@"sprite1.png"];
                             CCAnimation *largeBlueBlobAnimation = [CCAnimation animationWithSpriteFrames:largeSpriteAnim delay:0.1f];
                             CCRepeatForever * largeBlueBlobMovement = [CCRepeatForever actionWithAction:[CCAnimate actionWithAnimation:largeBlueBlobAnimation]];
