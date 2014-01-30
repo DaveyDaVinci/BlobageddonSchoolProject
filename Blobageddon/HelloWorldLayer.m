@@ -97,6 +97,7 @@
         [self addChild:loseButton z:100];
         
         
+        /*
         //Test with blob class
         Blobs *largeBlobObject = [[Blobs alloc] initWithBlobType:0 blobSize:0 startTime:0.0 velocity:ccp(0,0) location:ccp(40, 90) blobInterract:TRUE tag:1 appeared:TRUE];
         [arrayOfSprites addObject:largeBlobObject];
@@ -106,18 +107,36 @@
         
         Blobs *smallObject2 = [[Blobs alloc] initWithBlobType:0 blobSize:1 startTime:0.0 velocity:ccp(0, 0) location:ccp(175, winSize.height/2) blobInterract:TRUE tag:3 appeared:TRUE];
         [arrayOfSprites addObject:smallObject2];
+        */
         
-        
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 50; i++)
         {
-            Blobs *largeBlob = [[Blobs alloc] initWithBlobType:BLUE_GLOB blobSize:LARGE_GLOB startTime:0.0 velocity:ccp(0, 0) location:ccp(40, 90) blobInterract:TRUE tag:i + 5 appeared:FALSE];
+            Blobs *largeBlob = [[Blobs alloc] initWithBlobType:BLUE_GLOB blobSize:LARGE_GLOB startTime:0.0 velocity:ccp(0, 0) location:ccp(40, 90) blobInterract:TRUE tag:i appeared:FALSE];
             
-            [arrayOfSprites addObject:largeBlob];
             
-            Blobs *smallBlob = [[Blobs alloc] initWithBlobType:BLUE_GLOB blobSize:SMALL_GLOB startTime:0.0 velocity:ccp(0, 0) location:ccp(75, winSize.height/3) blobInterract:TRUE tag:i + 10 appeared:FALSE];
+            
+            Blobs *smallBlob = [[Blobs alloc] initWithBlobType:BLUE_GLOB blobSize:SMALL_GLOB startTime:0.0 velocity:ccp(0, 0) location:ccp(75, winSize.height/3) blobInterract:TRUE tag:i + 50 appeared:FALSE];
             
             [arrayOfSprites addObject:smallBlob];
+            
+            
+            if (largeBlob.blobTag <= 5)
+            {
+                largeBlob.appeared = TRUE;
+                int randomX = arc4random() % abs(electricSprite.boundingBox.origin.x - 70);
+                int randomY = arc4random() % abs(winSize.height);
+                
+                 largeBlob.blobPosition = ccp(randomX, randomY);
+                
+                
+                
+               
+            }
+            
+            [arrayOfSprites addObject:largeBlob];
         }
+        
+        
         
         for (Blobs *blob in arrayOfSprites)
         {
@@ -248,8 +267,8 @@
             
             startingX = location.x;
             startingY = location.y;
-            NSLog(@"%d", blob.appeared);
-            NSLog(@"%d", blob.interactable);
+            NSLog(@"appeared = %d", blob.appeared);
+            NSLog(@"interactable = %d", blob.interactable);
         }
     }
     
@@ -434,6 +453,7 @@
             {
                 [self removeChild:blob.blobSprite];
                 blob.appeared = FALSE;
+                blobScore ++;
             }
             
             //OLD CODE WILL DELETE LATER
@@ -472,6 +492,7 @@
             {
                 [self removeChild:blob.blobSprite];
                 blob.appeared = FALSE;
+                blobScore ++;
             }
             
             /*
@@ -504,6 +525,7 @@
             {
                 [self removeChild:blob.blobSprite];
                 blob.appeared = FALSE;
+                blobScore ++;
             }
            
             /*
@@ -535,6 +557,7 @@
             {
                 [self removeChild:blob.blobSprite];
                 blob.appeared = FALSE;
+                blobScore ++;
             }
             
             /*
@@ -550,7 +573,7 @@
            
         }
         
-        blobScore ++;
+        
         [scoreLabel setString:[NSString stringWithFormat:@"%d/10", blobScore]];
         
         if (blobScore == 10)
@@ -571,7 +594,7 @@
         
         if (comparedBlob.appeared == FALSE)
         {
-            break;
+            continue;
         }
         else
         {
@@ -597,13 +620,13 @@
                     
                    // CGPoint newVelocity = ccp((maxX - minX) / 2, (maxY - minY) / 2);
                     
-                    CGPoint newVelocity = ccp((maxX - minX), (maxY - minY));
+                    CGPoint newVelocity = ccp((maxX - minX)/2, (maxY - minY)/2);
                     
                     NSLog(@"min x = %d, max x = %d, min y = %d, max y = %d", minX, maxX, minY, maxY);
                     
-                    for (int j = 0; j < arrayOfSprites.count; j++)
+                                        
+                    for (Blobs *newGlob in arrayOfSprites)
                     {
-                        Blobs *newGlob = [arrayOfSprites objectAtIndex:j];
                         if (newGlob.appeared == FALSE && newGlob.blobSize == LARGE_GLOB)
                         {
                             blob.appeared = FALSE;
@@ -748,25 +771,7 @@
             
         }
         
-        /*
-        Blobs *tempblob = [arrayOfSprites objectAtIndex:i];
-        if (tempblob.blobType == BLUE_GLOB && tempblob.blobSize == SMALL_GLOB && tempblob.appeared == FALSE)
-        {
-            count ++;
-            tempblob.appeared = TRUE;
-            [self addChild:tempblob.blobSprite];
-            tempblob.blobPosition = position;
-            tempblob.blobVelocity = velocity;
-            tempblob.interactable = FALSE;
-            [NSTimer scheduledTimerWithTimeInterval:.5 target:self selector:@selector(changeInteraction:) userInfo:tempblob repeats:FALSE];
-            
-        }
         
-        if (count >= 1)
-        {
-            
-        }
-        */
     }
 }
 
