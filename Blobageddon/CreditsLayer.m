@@ -82,7 +82,7 @@
         [smallSpriteNode addChild:ghostSprite];
         [smallSpriteNode addChild:zombieSprite];
         
-        CCLabelTTF *creditsLabel = [CCLabelTTF labelWithString:@"Game design and programming by: David Magee" fontName: @"Courier" fontSize:20.0];
+        CCLabelTTF *creditsLabel = [CCLabelTTF labelWithString:@"Game design and programming by: David Magee\n\nSounds from Freesound.org\n\nBackground images from \nhttp://www.flickr.com/people/simoncpage/" fontName: @"Courier" fontSize:20.0];
         [creditsLabel setPosition:ccp(size.width / 2, (size.height / 3) * 2)];
         [self addChild:creditsLabel z:20];
     }

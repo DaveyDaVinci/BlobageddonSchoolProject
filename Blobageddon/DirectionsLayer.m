@@ -82,7 +82,7 @@
         [smallSpriteNode addChild:ghostSprite];
         [smallSpriteNode addChild:zombieSprite];
         
-        CCLabelTTF *creditsLabel = [CCLabelTTF labelWithString:@"Directions:\n\n\n Swipe blobs toward electrified post\n\nsmall blobs disappear\n\nbig blobs break apart into smaller blobs" fontName: @"Courier" fontSize:20.0];
+        CCLabelTTF *creditsLabel = [CCLabelTTF labelWithString:@"Directions:\n\n Swipe blobs toward electrified post\n\nsmall blobs disappear\n\nbig blobs break apart into smaller blobs\n\nGet to 10 blobs to win the game!" fontName: @"Courier" fontSize:17.0];
         [creditsLabel setPosition:ccp(size.width / 2, (size.height / 3) * 2)];
         [self addChild:creditsLabel z:20];
     }

@@ -70,8 +70,7 @@
                                         [NSString stringWithFormat:@"sprite%d.png", i]]];
         }
         
-        CCAnimation *largeBlueBlobAnimation = [CCAnimation animationWithSpriteFrames:largeSpriteAnim delay:0.1f];
-        CCRepeatForever * largeBlueBlobMovement = [CCRepeatForever actionWithAction:[CCAnimate actionWithAnimation:largeBlueBlobAnimation]];
+        
         
         electricSprite = [CCSprite spriteWithFile:@"electric.png"];
         
@@ -149,6 +148,8 @@
                     
                     blob.blobSprite = [CCSprite spriteWithSpriteFrameName:@"sprite1.png"];
                     blob.blobSprite.position = blob.blobPosition;
+                    CCAnimation *largeBlueBlobAnimation = [CCAnimation animationWithSpriteFrames:largeSpriteAnim delay:0.1f];
+                    CCRepeatForever * largeBlueBlobMovement = [CCRepeatForever actionWithAction:[CCAnimate actionWithAnimation:largeBlueBlobAnimation]];
                     [blob.blobSprite runAction:largeBlueBlobMovement];
                    // [largeBlueBlobSpritesheet addChild:blob.blobSprite];
                     [largeSpritesheet addChild:blob.blobSprite];
@@ -326,7 +327,7 @@
     
     if (blob.blobSprite.position.y  >= winSize.height)
     {
-        NSLog(@"Hit at top");
+       // NSLog(@"Hit at top");
         CGFloat x = blob.blobVelocity.x;
         CGFloat y = blob.blobVelocity.y;
         
@@ -336,7 +337,7 @@
     }
     else if (blob.blobSprite.position.y <= 0)
     {
-        NSLog(@"Hit bottom");
+      //  NSLog(@"Hit bottom");
         CGFloat x = blob.blobVelocity.x;
         CGFloat y = blob.blobVelocity.y;
         
@@ -347,7 +348,7 @@
     }
     else if (blob.blobSprite.position.x >= winSize.width)
     {
-        NSLog(@"Hit right");
+       // NSLog(@"Hit right");
         CGFloat x = blob.blobVelocity.x;
         CGFloat y = blob.blobVelocity.y;
         
@@ -357,7 +358,7 @@
     }
     else if (blob.blobSprite.position.x <= 0)
     {
-        NSLog(@"hit left");
+       // NSLog(@"hit left");
         CGFloat x = blob.blobVelocity.x;
         CGFloat y = blob.blobVelocity.y;
         
@@ -382,7 +383,7 @@
         //Hit the top
         if (yIntersect + 5 >= electricSprite.boundingBox.size.height + electricSprite.boundingBox.origin.y)
         {
-            NSLog(@"hit the top");
+            //NSLog(@"hit the top");
             [[SimpleAudioEngine sharedEngine] playEffect:@"splat.wav"];
             if (blob.blobSize == LARGE_GLOB)
             {
@@ -510,7 +511,7 @@
         else if (xIntersect <= electricSprite.boundingBox.origin.x)
         {
             [[SimpleAudioEngine sharedEngine] playEffect:@"splat.wav"];
-            NSLog(@"hit the left");
+            //NSLog(@"hit the left");
             if (blob.blobSize == LARGE_GLOB)
             {
                 [self removeChild:blob.blobSprite];
@@ -542,7 +543,7 @@
         else 
         {
             [[SimpleAudioEngine sharedEngine] playEffect:@"splat.wav"];
-            NSLog(@"hit the left");
+           // NSLog(@"hit the left");
             if (blob.blobSize == LARGE_GLOB)
             {
                 [self removeChild:blob.blobSprite];
@@ -600,7 +601,7 @@
         {
             if (comparedBlob != blob && CGRectIntersectsRect(blob.blobSprite.boundingBox, comparedBlob.blobSprite.boundingBox))
             {
-                NSLog(@"blobs intersected");
+               // NSLog(@"blobs intersected");
                 
                 if (comparedBlob.interactable == FALSE || blob.interactable == FALSE)
                 {
@@ -622,7 +623,7 @@
                     
                     CGPoint newVelocity = ccp((maxX - minX)/2, (maxY - minY)/2);
                     
-                    NSLog(@"min x = %d, max x = %d, min y = %d, max y = %d", minX, maxX, minY, maxY);
+                 //   NSLog(@"min x = %d, max x = %d, min y = %d, max y = %d", minX, maxX, minY, maxY);
                     
                                         
                     for (Blobs *newGlob in arrayOfSprites)
@@ -778,15 +779,17 @@
 
 #pragma mark GameKit delegate
 
+
 -(void) achievementViewControllerDidFinish:(GKAchievementViewController *)viewController
 {
-	AppController *app = (AppController*) [[UIApplication sharedApplication] delegate];
-	[[app navController] dismissModalViewControllerAnimated:YES];
+	//AppController *app = (AppController*) [[UIApplication sharedApplication] delegate];
+	//[[app navController] dismissModalViewControllerAnimated:YES];
 }
 
 -(void) leaderboardViewControllerDidFinish:(GKLeaderboardViewController *)viewController
 {
-	AppController *app = (AppController*) [[UIApplication sharedApplication] delegate];
-	[[app navController] dismissModalViewControllerAnimated:YES];
+	//AppController *app = (AppController*) [[UIApplication sharedApplication] delegate];
+	//[[app navController] dismissModalViewControllerAnimated:YES];
 }
+ 
 @end
