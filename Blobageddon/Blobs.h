@@ -10,6 +10,9 @@
 #import "cocos2d.h"
 
 #define BLUE_GLOB 0
+#define WIZARD_GLOB 1
+
+
 #define LARGE_GLOB 0
 #define SMALL_GLOB 1
 
@@ -42,7 +45,7 @@
 @property int blobSize;
 @property BOOL interactable;
 @property BOOL appeared;
-@property (retain)CCSprite *blobSprite;
+@property (strong)CCSprite *blobSprite;
 @property int blobTag;
 @property CGPoint blobPosition;
 

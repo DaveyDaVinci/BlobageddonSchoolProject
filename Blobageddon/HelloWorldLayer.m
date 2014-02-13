@@ -49,15 +49,70 @@
         
         [[SimpleAudioEngine sharedEngine] preloadEffect:@"splat.wav"];
         [[SimpleAudioEngine sharedEngine] preloadEffect:@"whoosh.m4a"];
+        [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"mediumzaps.wav"];
         
         self.touchEnabled = TRUE;
        
         //SpriteAnimationStuff
         [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"spriteanimated.plist"];
+        [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"powerupsprites.plist"];
+        [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"powerupbox.plist"];
+        [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"wizardblobs.plist"];
       
         
         largeSpritesheet = [CCSpriteBatchNode batchNodeWithFile:@"spriteanimated.png"];
         [self addChild:largeSpritesheet];
+        powerupSpriteSheet = [CCSpriteBatchNode batchNodeWithFile:@"powerupsprites.png"];
+        [self addChild:powerupSpriteSheet];
+        powerUpBoxes = [CCSpriteBatchNode batchNodeWithFile:@"powerupbox.png"];
+        [self addChild:powerUpBoxes];
+        wizardSpritesheet = [CCSpriteBatchNode batchNodeWithFile:@"wizardblobs.png"];
+        [self addChild:wizardSpritesheet];
+        
+        
+        arrayOfPowerups = [NSMutableArray array];
+        
+        /*
+        CCSprite *fireman = [CCSprite spriteWithSpriteFrameName:@"FiremanHat.png"];
+        CCSprite *crown = [CCSprite spriteWithSpriteFrameName:@"crown.png"];
+        CCSprite *wizard = [CCSprite spriteWithSpriteFrameName:@"wizardhat.png"];
+        CCSprite *zombie = [CCSprite spriteWithSpriteFrameName:@"zombiebandage.png"];
+        
+        [powerupSpriteSheet addChild:fireman];
+        [powerupSpriteSheet addChild:crown];
+        [powerupSpriteSheet addChild:wizard];
+        [powerupSpriteSheet addChild:zombie];
+        */
+        
+        
+        Powerups *zombiePowerUp = [[Powerups alloc] initWithPowerupType:ZOMBIE position:[self randomPoint] velocity:ccp(0,0) appeared:FALSE interactive:FALSE collected:FALSE];
+        zombiePowerUp.powerUpSprite = [CCSprite spriteWithSpriteFrameName:@"zombiebandage.png"];
+        //[powerupSpriteSheet addChild:zombiePowerUp.powerUpSprite];
+        [arrayOfPowerups addObject:zombiePowerUp];
+        
+        Powerups *queenPowerUp = [[Powerups alloc] initWithPowerupType:QUEEN position:[self randomPoint] velocity:ccp(0,0) appeared:FALSE interactive:FALSE collected:FALSE];
+        queenPowerUp.powerUpSprite = [CCSprite spriteWithSpriteFrameName:@"crown.png"];
+        //[powerupSpriteSheet addChild:queenPowerUp.powerUpSprite];
+        [arrayOfPowerups addObject:queenPowerUp];
+        
+        Powerups *wizardPowerUp = [[Powerups alloc] initWithPowerupType:WIZARD position:[self randomPoint] velocity:ccp(0,0) appeared:FALSE interactive:FALSE collected:FALSE];
+        wizardPowerUp.powerUpSprite = [CCSprite spriteWithSpriteFrameName:@"wizardhat.png"];
+        //[powerupSpriteSheet addChild:wizardPowerUp.powerUpSprite];
+        [arrayOfPowerups addObject:wizardPowerUp];
+        
+        Powerups *firemanPowerUp = [[Powerups alloc] initWithPowerupType:FIREMAN position:[self randomPoint] velocity:ccp(0,0) appeared:FALSE interactive:FALSE collected:FALSE];
+        firemanPowerUp.powerUpSprite = [CCSprite spriteWithSpriteFrameName:@"FiremanHat.png"];
+        //[powerupSpriteSheet addChild:firemanPowerUp.powerUpSprite];
+        [arrayOfPowerups addObject:firemanPowerUp];
+        
+        for (int i = 0; i < 10; i++)
+        {
+            CGPoint randomTest = [self randomPoint];
+            
+            NSLog(@"x = %f, y = %f", randomTest.x, randomTest.y);
+        }
+        
+        
       
         
         largeSpriteAnim = [NSMutableArray array];
@@ -69,6 +124,9 @@
         
         
         
+        
+        
+        //ElectricSprite Creation
         electricSprite = [CCSprite spriteWithFile:@"electric.png"];
         
         electricSprite.position = ccp(winSize.width/2 + (winSize.width/3), winSize.height/2 + (electricSprite.scaleY/2));
@@ -77,9 +135,11 @@
         
         [self addChild:electricSprite];
         
-        [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"mediumzaps.wav"];
         
         
+        
+        
+        //Button creation
         pausePlayButton = [CCSprite spriteWithFile:@"pausebutton.png"];
         pausePlayButton.position = ccp(winSize.width - (pausePlayButton.boundingBox.size.width * .3), 0 + (pausePlayButton.boundingBox.size.height * .3));
         pausePlayButton.scale = .4;
@@ -157,6 +217,17 @@
         [scoreLabel setPosition:ccp(winSize.width - 40, winSize.height - 30)];
         [self addChild:scoreLabel z:20];
         
+        
+        
+        
+        wizardPowerUpBox = [CCSprite spriteWithSpriteFrameName:@"powerupspotsmall.png"];
+        wizardPowerUpBox.position = ccp(winSize.width/6, winSize.height / 9);
+        [powerUpBoxes addChild:wizardPowerUpBox z:10];
+        
+        globalBlobType = BLUE_GLOB;
+        
+        wizardPowerUpUsed = FALSE;
+        
     }
 		return self;
 }
@@ -204,7 +275,79 @@
         }
     }
     
-     
+    
+    int random = arc4random() % 300;
+    if (random == 25)
+    {
+        NSLog(@"Random hit");
+        
+        
+        
+        Powerups *wizard = [arrayOfPowerups objectAtIndex:2];
+        
+        if (wizard.spriteAppeared == FALSE && wizard.spriteCollected == FALSE)
+        {
+            wizard.spriteAppeared = TRUE;
+            [powerupSpriteSheet addChild:wizard.powerUpSprite z:-10];
+            wizard.powerUpSprite.position = wizard.spriteLocation;
+            
+            [NSTimer scheduledTimerWithTimeInterval:.5 target:self selector:@selector(changePowerupInteraction:) userInfo:wizard repeats:FALSE];
+            wizardPowerupTimer = [NSTimer scheduledTimerWithTimeInterval:8 target:self selector:@selector(removePowerupFromScreen:) userInfo:wizard repeats:FALSE];
+            
+            float x;
+            float y;
+            
+            if (wizard.spriteLocation.x < winSize.width / 2)
+            {
+                x = (arc4random() % 5) +1;
+                x = x / 2;
+            }
+            else
+            {
+                x = (arc4random() % 5) + 1;
+                x = x * -1;
+                x = x / 2;
+            }
+            
+            if (wizard.spriteLocation.y < winSize.height /2)
+            {
+                y = (arc4random() % 5) + 1;
+                 y = y / 2;
+            }
+            else
+            {
+                y = (arc4random() % 5) + 1;
+                y = y * -1;
+                y = y / 2;
+            }
+            
+            wizard.spriteVelocity = ccp(x, y);
+            
+            NSLog(@"%f, %f", wizard.spriteVelocity.x, wizard.spriteVelocity.y);
+        }
+        
+        
+        
+    }
+
+    for (Powerups *powerup in arrayOfPowerups)
+    {
+        if (powerup.spriteAppeared == TRUE)
+        {
+            [powerup updateLocation];
+            powerup.powerUpSprite.position = ccp(powerup.spriteLocation.x + powerup.spriteVelocity.x, powerup.spriteLocation.y + powerup.spriteVelocity.y);
+            
+            if (powerup.spriteInteractive == TRUE)
+            {
+                [self checkPowerupCollisionWithScreenEdges:powerup];
+            }
+        }
+    }
+    
+
+    
+
+    
 }
 
 
@@ -231,6 +374,52 @@
     if (CGRectContainsPoint(loseButton.boundingBox, location))
     {
         [self winLoseGame:FALSE];
+    }
+    
+    if (CGRectContainsPoint(wizardPowerUpBox.boundingBox, location))
+    {
+        if (wizardPowerUpUsed != TRUE && wizardPowerUpCollected == TRUE)
+        {
+            tappedWizardPowerup = TRUE;
+        }
+        
+    }
+    
+    
+    for (Powerups *powerup in arrayOfPowerups)
+    {
+        if (CGRectContainsPoint(powerup.powerUpSprite.boundingBox, location))
+        {
+            
+            wizardPowerUpCollected = TRUE;
+            if (powerup.spriteCollected == FALSE)
+            {
+                powerup.spriteCollected = TRUE;
+                powerup.spriteAppeared = FALSE;
+                powerup.spriteVelocity = ccp(0,0);
+                
+                [wizardPowerupTimer invalidate];
+                [powerupSpriteSheet removeChild:powerup.powerUpSprite];
+                
+                CGPoint wizardLoc = wizardPowerUpBox.position;
+                [powerUpBoxes removeChild:wizardPowerUpBox];
+                
+                wizardPowerUpBox = [CCSprite spriteWithSpriteFrameName:@"powerupwithwizhat.png"];
+                wizardPowerUpBox.position = wizardLoc;
+                [powerUpBoxes addChild:wizardPowerUpBox];
+                
+                 //powerup.powerUpSprite.position = ccp(wizardPowerUpBox.position.x, wizardPowerUpBox.position.y);
+               // [powerupSpriteSheet addChild:powerup.powerUpSprite];
+                
+                
+               
+                
+                
+            }
+            
+            
+        }
+     
     }
     
     
@@ -293,6 +482,26 @@
         
         selectedBlob = nil;
     }
+    
+    if (tappedWizardPowerup == TRUE)
+    {
+        wizardPowerUpCollected = FALSE;
+        tappedWizardPowerup = FALSE;
+        globalBlobType = WIZARD_GLOB;
+        [self changeGlobType:WIZARD_GLOB];
+        [NSTimer scheduledTimerWithTimeInterval:8 target:self selector:@selector(revertToBlue:) userInfo:[NSNumber numberWithInt:WIZARD_GLOB] repeats:FALSE];
+        CGPoint powerUpLocation = wizardPowerUpBox.position;
+        [powerUpBoxes removeChild:wizardPowerUpBox];
+    
+        wizardPowerUpBox = [CCSprite spriteWithSpriteFrameName:@"powerupspotsmall.png"];
+        wizardPowerUpBox.position = powerUpLocation;
+        [powerUpBoxes addChild:wizardPowerUpBox];
+        wizardPowerUpUsed = TRUE;
+        
+        
+    }
+    
+    
          
 }
 
@@ -362,15 +571,29 @@
             [[SimpleAudioEngine sharedEngine] playEffect:@"splat.wav"];
             if (blob.blobSize == LARGE_GLOB)
             {
-               // Blobs *smallBlob1;
-                //Blobs *smallBlob2;
-                [self removeChild:blob.blobSprite];
-                [largeSpritesheet removeChild:blob.blobSprite];
-                
-                blob.appeared = FALSE;
-                
-                [self determineSpriteDirection:ccp(blob.blobVelocity.x, - 1 * blob.blobVelocity.y) position:blob.blobPosition];
-                [self determineSpriteDirection:ccp(-1 * blob.blobVelocity.x, -1 * blob.blobVelocity.y) position:blob.blobPosition];
+                if (blob.blobType == BLUE_GLOB)
+                {
+                    // Blobs *smallBlob1;
+                    //Blobs *smallBlob2;
+                    [self removeChild:blob.blobSprite];
+                    [largeSpritesheet removeChild:blob.blobSprite];
+                    
+                    blob.appeared = FALSE;
+                    
+                    [self determineSpriteDirection:ccp(blob.blobVelocity.x, - 1 * blob.blobVelocity.y) position:blob.blobPosition];
+                    [self determineSpriteDirection:ccp(-1 * blob.blobVelocity.x, -1 * blob.blobVelocity.y) position:blob.blobPosition];
+                }
+                else if (blob.blobType == WIZARD_GLOB)
+                {
+                    [self removeChild:blob.blobSprite];
+                    [wizardSpritesheet removeChild:blob.blobSprite];
+                    
+                    blob.appeared = FALSE;
+                    
+                    [self determineSpriteDirection:ccp(blob.blobVelocity.x, - 1 * blob.blobVelocity.y) position:blob.blobPosition];
+                    [self determineSpriteDirection:ccp(-1 * blob.blobVelocity.x, -1 * blob.blobVelocity.y) position:blob.blobPosition];
+                }
+               
                 
             }
             else
@@ -387,13 +610,27 @@
             [[SimpleAudioEngine sharedEngine] playEffect:@"splat.wav"];
             if (blob.blobSize == LARGE_GLOB)
             {
-                [self removeChild:blob.blobSprite];
-                [largeSpritesheet removeChild:blob.blobSprite];
+                if (blob.blobType == BLUE_GLOB)
+                {
+                    [self removeChild:blob.blobSprite];
+                    [largeSpritesheet removeChild:blob.blobSprite];
+                    
+                    blob.appeared = FALSE;
+                    
+                    [self determineSpriteDirection:ccp(-1 * blob.blobVelocity.x, -1 * blob.blobVelocity.y) position:blob.blobPosition];
+                    [self determineSpriteDirection:ccp(blob.blobVelocity.x, -1 * blob.blobVelocity.y) position:blob.blobPosition];
+                }
+                else if (blob.blobType == WIZARD_GLOB)
+                {
+                    [self removeChild:blob.blobSprite];
+                    [wizardSpritesheet removeChild:blob.blobSprite];
+                    
+                    blob.appeared = FALSE;
+                    
+                    [self determineSpriteDirection:ccp(-1 * blob.blobVelocity.x, -1 * blob.blobVelocity.y) position:blob.blobPosition];
+                    [self determineSpriteDirection:ccp(blob.blobVelocity.x, -1 * blob.blobVelocity.y) position:blob.blobPosition];
+                }
                 
-                blob.appeared = FALSE;
-                
-                [self determineSpriteDirection:ccp(-1 * blob.blobVelocity.x, -1 * blob.blobVelocity.y) position:blob.blobPosition];
-                [self determineSpriteDirection:ccp(blob.blobVelocity.x, -1 * blob.blobVelocity.y) position:blob.blobPosition];
             }
             else
             {
@@ -412,13 +649,28 @@
             //NSLog(@"hit the left");
             if (blob.blobSize == LARGE_GLOB)
             {
-                [self removeChild:blob.blobSprite];
-                [largeSpritesheet removeChild:blob.blobSprite];
                 
-                blob.appeared = FALSE;
+                if (blob.blobType == BLUE_GLOB)
+                {
+                    [self removeChild:blob.blobSprite];
+                    [largeSpritesheet removeChild:blob.blobSprite];
+                    
+                    blob.appeared = FALSE;
+                    
+                    [self determineSpriteDirection:ccp(-1 * blob.blobVelocity.x, -1 * blob.blobVelocity.y) position:blob.blobPosition];
+                    [self determineSpriteDirection:ccp(-1 * blob.blobVelocity.x, blob.blobVelocity.y) position:blob.blobPosition];
+                }
+                else if (blob.blobType == WIZARD_GLOB)
+                {
+                    [self removeChild:blob.blobSprite];
+                    [wizardSpritesheet removeChild:blob.blobSprite];
+                    
+                    blob.appeared = FALSE;
+                    
+                    [self determineSpriteDirection:ccp(-1 * blob.blobVelocity.x, -1 * blob.blobVelocity.y) position:blob.blobPosition];
+                    [self determineSpriteDirection:ccp(-1 * blob.blobVelocity.x, blob.blobVelocity.y) position:blob.blobPosition];
+                }
                 
-                [self determineSpriteDirection:ccp(-1 * blob.blobVelocity.x, -1 * blob.blobVelocity.y) position:blob.blobPosition];
-                [self determineSpriteDirection:ccp(-1 * blob.blobVelocity.x, blob.blobVelocity.y) position:blob.blobPosition];
             }
             else
             {
@@ -435,13 +687,28 @@
           
             if (blob.blobSize == LARGE_GLOB)
             {
-                [self removeChild:blob.blobSprite];
-                [largeSpritesheet removeChild:blob.blobSprite];
                 
-                blob.appeared = FALSE;
+                if(blob.blobType == BLUE_GLOB)
+                {
+                    [self removeChild:blob.blobSprite];
+                    [largeSpritesheet removeChild:blob.blobSprite];
+                    
+                    blob.appeared = FALSE;
+                    
+                    [self determineSpriteDirection:ccp(-1 * blob.blobVelocity.x, -1 * blob.blobVelocity.y) position:blob.blobPosition];
+                    [self determineSpriteDirection:ccp(-1 * blob.blobVelocity.x, blob.blobVelocity.y) position:blob.blobPosition];
+                }
+                else if (blob.blobType == WIZARD_GLOB)
+                {
+                    [self removeChild:blob.blobSprite];
+                    [wizardSpritesheet removeChild:blob.blobSprite];
+                    
+                    blob.appeared = FALSE;
+                    
+                    [self determineSpriteDirection:ccp(-1 * blob.blobVelocity.x, -1 * blob.blobVelocity.y) position:blob.blobPosition];
+                    [self determineSpriteDirection:ccp(-1 * blob.blobVelocity.x, blob.blobVelocity.y) position:blob.blobPosition];
+                }
                 
-                [self determineSpriteDirection:ccp(-1 * blob.blobVelocity.x, -1 * blob.blobVelocity.y) position:blob.blobPosition];
-                [self determineSpriteDirection:ccp(-1 * blob.blobVelocity.x, blob.blobVelocity.y) position:blob.blobPosition];
             }
             else
             {
@@ -487,6 +754,8 @@
                 }
                 else if (blob.blobSize == SMALL_GLOB && comparedBlob.blobSize == SMALL_GLOB)
                 {
+                    
+                    
                     CGPoint blob1Velocity = blob.blobVelocity;
                     CGPoint blob2Velocity = comparedBlob.blobVelocity;
                     
@@ -503,22 +772,45 @@
                     {
                         if (newGlob.appeared == FALSE && newGlob.blobSize == LARGE_GLOB)
                         {
-                            blob.appeared = FALSE;
-                            comparedBlob.appeared = FALSE;
-                            [self removeChild:blob.blobSprite];
-                            [self removeChild:comparedBlob.blobSprite];
                             
-                            newGlob.blobPosition = comparedBlob.blobPosition;
-                            newGlob.blobVelocity = newVelocity;
+                            if (globalBlobType == BLUE_GLOB)
+                            {
+                                blob.appeared = FALSE;
+                                comparedBlob.appeared = FALSE;
+                                [self removeChild:blob.blobSprite];
+                                [self removeChild:comparedBlob.blobSprite];
+                                
+                                newGlob.blobPosition = comparedBlob.blobPosition;
+                                newGlob.blobVelocity = newVelocity;
+                                
+                                newGlob.appeared = TRUE;
+                                
+                                newGlob.blobSprite = [CCSprite spriteWithSpriteFrameName:@"sprite1.png"];
+                                CCAnimation *largeBlueBlobAnimation = [CCAnimation animationWithSpriteFrames:largeSpriteAnim delay:0.1f];
+                                CCRepeatForever * largeBlueBlobMovement = [CCRepeatForever actionWithAction:[CCAnimate actionWithAnimation:largeBlueBlobAnimation]];
+                                [newGlob.blobSprite runAction:largeBlueBlobMovement];
+                                [largeSpritesheet addChild:newGlob.blobSprite];
+                                break;
+                            }
+                            else if (globalBlobType == WIZARD_GLOB)
+                            {
+                                blob.appeared = FALSE;
+                                comparedBlob.appeared = FALSE;
+                                [self removeChild:blob.blobSprite];
+                                [self removeChild:comparedBlob.blobSprite];
+                                
+                                newGlob.blobPosition = comparedBlob.blobPosition;
+                                newGlob.blobVelocity = newVelocity;
+                                
+                                newGlob.appeared = TRUE;
+                                newGlob.blobType = WIZARD_GLOB;
+                                
+                                newGlob.blobSprite = [CCSprite spriteWithSpriteFrameName:@"wizard.png"];
+                                
+                                [wizardSpritesheet addChild:newGlob.blobSprite];
+                                break;
+                            }
                             
-                            newGlob.appeared = TRUE;
-                            
-                            newGlob.blobSprite = [CCSprite spriteWithSpriteFrameName:@"sprite1.png"];
-                            CCAnimation *largeBlueBlobAnimation = [CCAnimation animationWithSpriteFrames:largeSpriteAnim delay:0.1f];
-                            CCRepeatForever * largeBlueBlobMovement = [CCRepeatForever actionWithAction:[CCAnimate actionWithAnimation:largeBlueBlobAnimation]];
-                            [newGlob.blobSprite runAction:largeBlueBlobMovement];
-                            [largeSpritesheet addChild:newGlob.blobSprite];
-                            break;
                         }
                     }
                 }
@@ -607,6 +899,19 @@
         [winLabel setPosition:ccp(winSize.width/2, winSize.height/2)];
         [self addChild:winLabel z:20];
         
+        if (wizardPowerUpUsed == FALSE)
+        {
+            CCLabelTTF *powerUPLabel = [CCLabelTTF labelWithString:@"Power Up Bonus: 100" fontName:@"Courier" fontSize:28.0];
+            [powerUPLabel setPosition:ccp(winSize.width/2, winSize.height/3)];
+            [self addChild:powerUPLabel z:20];
+        }
+        else
+        {
+            CCLabelTTF *powerUPLabel = [CCLabelTTF labelWithString:@"Power Up Bonus: 0" fontName:@"Courier" fontSize:28.0];
+            [powerUPLabel setPosition:ccp(winSize.width/2, winSize.height/3)];
+            [self addChild:powerUPLabel z:20];
+        }
+        
         [gameTimer invalidate];
         //[[CCDirector sharedDirector] stopAnimation];
     }
@@ -629,22 +934,253 @@
         for (Blobs *blob in arrayOfSprites)
         {
             
-            if (blob.blobType == BLUE_GLOB && blob.blobSize == SMALL_GLOB && blob.appeared == FALSE)
+            if (/*blob.blobType == BLUE_GLOB && */ blob.blobSize == SMALL_GLOB && blob.appeared == FALSE)
             {
-                count ++;
-                blob.appeared = TRUE;
-                [self addChild:blob.blobSprite];
-                blob.blobPosition = position;
-                blob.blobVelocity = velocity;
-                blob.interactable = FALSE;
-                [NSTimer scheduledTimerWithTimeInterval:.5 target:self selector:@selector(changeInteraction:) userInfo:blob repeats:FALSE];
-                return;
+                if (globalBlobType == BLUE_GLOB)
+                {
+                    count ++;
+                    blob.appeared = TRUE;
+                    blob.blobType = globalBlobType;
+                    blob.blobSprite = [CCSprite spriteWithFile:@"smallblob1.png"];
+                    [self addChild:blob.blobSprite];
+                    blob.blobPosition = position;
+                    blob.blobVelocity = velocity;
+                    blob.interactable = FALSE;
+                    [NSTimer scheduledTimerWithTimeInterval:.5 target:self selector:@selector(changeInteraction:) userInfo:blob repeats:FALSE];
+                    return;
+                }
+                else if (globalBlobType == WIZARD_GLOB)
+                {
+                    count ++;
+                    blob.appeared = TRUE;
+                    blob.blobSprite = [CCSprite spriteWithFile:@"smallwizardblob.png"];
+                    blob.blobType = globalBlobType;
+                    [self addChild:blob.blobSprite];
+                    blob.blobPosition = position;
+                    blob.blobVelocity = velocity;
+                    blob.interactable = FALSE;
+                    [NSTimer scheduledTimerWithTimeInterval:.5 target:self selector:@selector(changeInteraction:) userInfo:blob repeats:FALSE];
+                    return;
+                }
+                
             }
             
         }
         
         
     }
+}
+
+
+-(CGPoint)randomPoint
+{
+    CGPoint randomPoint;
+    float lowX = -50;
+    float highX = winSize.width + 50;
+    
+    float rndValueX = (((float)arc4random()/0x100000000)*(highX - lowX)+ lowX);
+    float rndValueY;
+    
+    //If the value of rndx is outside the bounds of the screen, we'll want the rnd y to be within borders
+    if (rndValueX > winSize.width && rndValueX < 0)
+    {
+        float lowY = 0;
+        float highY = winSize.height;
+        rndValueY = (((float)arc4random()/0x100000000)*(highY - lowY)+ lowY);
+    }
+    else
+    {
+        int random = arc4random() % 100;
+        if (random >= 50)
+        {
+            float lowY = -50;
+            float highY = 0;
+            rndValueY = (((float)arc4random()/0x100000000)*(highY - lowY)+ lowY);
+        }
+        else
+        {
+            float lowY = winSize.height;
+            float highY = winSize.height + 50;
+            rndValueY = (((float)arc4random()/0x100000000)*(highY - lowY)+ lowY);
+        }
+    }
+    
+    randomPoint = ccp(rndValueX, rndValueY);
+    
+    return randomPoint;
+}
+
+
+
+-(void)checkPowerupCollisionWithScreenEdges: (Powerups *)powerUp
+{
+    
+    
+    if (powerUp.powerUpSprite.position.y  >= winSize.height)
+    {
+        // NSLog(@"Hit at top");
+        CGFloat x = powerUp.spriteVelocity.x;
+        CGFloat y = powerUp.spriteVelocity.y;
+        
+        powerUp.spriteVelocity = ccp(x, -1 * abs(y));
+        
+        
+    }
+    else if (powerUp.powerUpSprite.position.y <= 0)
+    {
+        //  NSLog(@"Hit bottom");
+        CGFloat x = powerUp.spriteVelocity.x;
+        CGFloat y = powerUp.spriteVelocity.y;
+        
+       powerUp.spriteVelocity = ccp(x, abs(y));
+        
+        
+        
+    }
+    else if (powerUp.powerUpSprite.position.x >= winSize.width)
+    {
+        // NSLog(@"Hit right");
+        CGFloat x = powerUp.spriteVelocity.x;
+        CGFloat y = powerUp.spriteVelocity.y;
+        
+        powerUp.spriteVelocity = ccp(-1 * abs(x), y);
+        
+        
+    }
+    else if (powerUp.powerUpSprite.position.x <= 0)
+    {
+        // NSLog(@"hit left");
+        CGFloat x = powerUp.spriteVelocity.x;
+        CGFloat y = powerUp.spriteVelocity.y;
+        
+        powerUp.spriteVelocity = ccp(abs(x), y);
+        
+        
+    }
+    
+}
+
+-(void)changePowerupInteraction: (NSTimer *)powerUpTimer
+{
+    Powerups *powerup = [powerUpTimer userInfo];
+    powerup.spriteInteractive = TRUE;
+    
+    
+    
+}
+
+
+-(void)removePowerupFromScreen: (NSTimer *)powerUpTimer
+{
+    
+    Powerups *powerup = [powerUpTimer userInfo];
+    
+        powerup.spriteInteractive = FALSE;
+        powerup.spriteAppeared = FALSE;
+        [powerupSpriteSheet removeChild:powerup.powerUpSprite];
+    
+    
+}
+
+
+
+-(void)changeGlobType: (int)blobType
+{
+    for (Blobs *blob in arrayOfSprites)
+    {
+        if (blob.appeared == TRUE)
+        {
+            blob.blobType = WIZARD_GLOB;
+            if (blobType == WIZARD_GLOB)
+            {
+                
+                
+                if (blob.blobSize == LARGE_GLOB)
+                {
+                    [largeSpritesheet removeChild:blob.blobSprite];
+                    blob.blobSprite = [CCSprite spriteWithSpriteFrameName:@"wizard.png"];
+                    blob.blobSprite.position = blob.blobPosition;
+                    [wizardSpritesheet addChild:blob.blobSprite];
+                    
+                }
+                else if (blob.blobSize == SMALL_GLOB)
+                {
+                    [self removeChild:blob.blobSprite];
+                    blob.blobSprite = [CCSprite spriteWithFile:@"smallwizardblob.png"];
+                    [self addChild:blob.blobSprite];
+                }
+            }
+            
+                     
+        }
+    }
+}
+
+-(void)revertToBlue: (NSTimer *)blobType
+{
+    int type = [[blobType userInfo] intValue];
+    if (type == WIZARD_GLOB)
+    {
+        for (Blobs *blob in arrayOfSprites)
+        {
+            
+            blob.blobType = BLUE_GLOB;
+            
+            /*
+            if (blob.blobSize == LARGE_GLOB)
+            {
+                blob.blobType = BLUE_GLOB;
+                blob.blobSprite = [CCSprite spriteWithSpriteFrameName:@"sprite1.png"];
+                if (blob.appeared == TRUE)
+                {
+                    
+                }
+            }
+            else if (blob.blobSize == SMALL_GLOB)
+            {
+                blob.blobType = BLUE_GLOB;
+                blob.blobSprite = [CCSprite spriteWithFile:@"smallblob1.png"];
+                if (blob.appeared == TRUE)
+                {
+                    [self removeChild:blob.blobSprite];
+                    //blob.blobType = BLUE_GLOB;
+                    //blob.blobSprite = [CCSprite spriteWithFile:@"smallblob1.png"];
+                    [self addChild:blob.blobSprite];
+                }
+            }
+             */
+            
+            if (blob.appeared == TRUE)
+            {
+                
+                    if (blob.blobSize == LARGE_GLOB)
+                    {
+                        
+                        [wizardSpritesheet removeChild:blob.blobSprite];
+                        blob.blobType = BLUE_GLOB;
+                        blob.blobSprite = [CCSprite spriteWithSpriteFrameName:@"sprite1.png"];
+                        CCAnimation *largeBlueBlobAnimation = [CCAnimation animationWithSpriteFrames:largeSpriteAnim delay:0.1f];
+                        CCRepeatForever * largeBlueBlobMovement = [CCRepeatForever actionWithAction:[CCAnimate actionWithAnimation:largeBlueBlobAnimation]];
+                        [blob.blobSprite runAction:largeBlueBlobMovement];
+                        [largeSpritesheet addChild:blob.blobSprite];
+             
+             
+                    }
+                    else if (blob.blobSize == SMALL_GLOB)
+                    {
+                        [self removeChild:blob.blobSprite];
+                        blob.blobType = BLUE_GLOB;
+                        blob.blobSprite = [CCSprite spriteWithFile:@"smallblob1.png"];
+                        [self addChild:blob.blobSprite];
+                    }
+             
+                   
+                
+            }
+             
+        }
+    }
+    globalBlobType = BLUE_GLOB;
 }
 
 

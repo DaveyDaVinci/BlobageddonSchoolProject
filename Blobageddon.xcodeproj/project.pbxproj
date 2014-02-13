@@ -7,6 +7,26 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CF04F98518A888840000C4D4 /* powerupsprites-hd.plist in Resources */ = {isa = PBXBuildFile; fileRef = CF04F97F18A888840000C4D4 /* powerupsprites-hd.plist */; };
+		CF04F98618A888840000C4D4 /* powerupsprites-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = CF04F98018A888840000C4D4 /* powerupsprites-hd.png */; };
+		CF04F98718A888840000C4D4 /* powerupsprites-ipadhd.plist in Resources */ = {isa = PBXBuildFile; fileRef = CF04F98118A888840000C4D4 /* powerupsprites-ipadhd.plist */; };
+		CF04F98818A888840000C4D4 /* powerupsprites-ipadhd.png in Resources */ = {isa = PBXBuildFile; fileRef = CF04F98218A888840000C4D4 /* powerupsprites-ipadhd.png */; };
+		CF04F98918A888840000C4D4 /* powerupsprites.plist in Resources */ = {isa = PBXBuildFile; fileRef = CF04F98318A888840000C4D4 /* powerupsprites.plist */; };
+		CF04F98A18A888840000C4D4 /* powerupsprites.png in Resources */ = {isa = PBXBuildFile; fileRef = CF04F98418A888840000C4D4 /* powerupsprites.png */; };
+		CF04F98D18A89CE00000C4D4 /* Powerups.m in Sources */ = {isa = PBXBuildFile; fileRef = CF04F98C18A89CE00000C4D4 /* Powerups.m */; };
+		CF04F9A018AB08B00000C4D4 /* powerupbox-hd.plist in Resources */ = {isa = PBXBuildFile; fileRef = CF04F99A18AB08B00000C4D4 /* powerupbox-hd.plist */; };
+		CF04F9A118AB08B00000C4D4 /* powerupbox-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = CF04F99B18AB08B00000C4D4 /* powerupbox-hd.png */; };
+		CF04F9A218AB08B00000C4D4 /* powerupbox-ipadhd.plist in Resources */ = {isa = PBXBuildFile; fileRef = CF04F99C18AB08B00000C4D4 /* powerupbox-ipadhd.plist */; };
+		CF04F9A318AB08B00000C4D4 /* powerupbox-ipadhd.png in Resources */ = {isa = PBXBuildFile; fileRef = CF04F99D18AB08B00000C4D4 /* powerupbox-ipadhd.png */; };
+		CF04F9A418AB08B00000C4D4 /* powerupbox.plist in Resources */ = {isa = PBXBuildFile; fileRef = CF04F99E18AB08B00000C4D4 /* powerupbox.plist */; };
+		CF04F9A518AB08B00000C4D4 /* powerupbox.png in Resources */ = {isa = PBXBuildFile; fileRef = CF04F99F18AB08B00000C4D4 /* powerupbox.png */; };
+		CF04F9AC18AB57B50000C4D4 /* wizardblobs-hd.plist in Resources */ = {isa = PBXBuildFile; fileRef = CF04F9A618AB57B30000C4D4 /* wizardblobs-hd.plist */; };
+		CF04F9AD18AB57B50000C4D4 /* wizardblobs-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = CF04F9A718AB57B30000C4D4 /* wizardblobs-hd.png */; };
+		CF04F9AE18AB57B50000C4D4 /* wizardblobs-ipadhd.plist in Resources */ = {isa = PBXBuildFile; fileRef = CF04F9A818AB57B40000C4D4 /* wizardblobs-ipadhd.plist */; };
+		CF04F9AF18AB57B50000C4D4 /* wizardblobs-ipadhd.png in Resources */ = {isa = PBXBuildFile; fileRef = CF04F9A918AB57B40000C4D4 /* wizardblobs-ipadhd.png */; };
+		CF04F9B018AB57B50000C4D4 /* wizardblobs.plist in Resources */ = {isa = PBXBuildFile; fileRef = CF04F9AA18AB57B50000C4D4 /* wizardblobs.plist */; };
+		CF04F9B118AB57B50000C4D4 /* wizardblobs.png in Resources */ = {isa = PBXBuildFile; fileRef = CF04F9AB18AB57B50000C4D4 /* wizardblobs.png */; };
+		CF04F9B318AB700A0000C4D4 /* smallwizardblob.png in Resources */ = {isa = PBXBuildFile; fileRef = CF04F9B218AB700A0000C4D4 /* smallwizardblob.png */; };
 		CF2C96DF187DE9C900689346 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF2C96DE187DE9C900689346 /* QuartzCore.framework */; };
 		CF2C96E1187DE9C900689346 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF2C96E0187DE9C900689346 /* OpenGLES.framework */; };
 		CF2C96E3187DE9C900689346 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF2C96E2187DE9C900689346 /* OpenAL.framework */; };
@@ -202,6 +222,27 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CF04F97F18A888840000C4D4 /* powerupsprites-hd.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "powerupsprites-hd.plist"; sourceTree = "<group>"; };
+		CF04F98018A888840000C4D4 /* powerupsprites-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "powerupsprites-hd.png"; sourceTree = "<group>"; };
+		CF04F98118A888840000C4D4 /* powerupsprites-ipadhd.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "powerupsprites-ipadhd.plist"; sourceTree = "<group>"; };
+		CF04F98218A888840000C4D4 /* powerupsprites-ipadhd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "powerupsprites-ipadhd.png"; sourceTree = "<group>"; };
+		CF04F98318A888840000C4D4 /* powerupsprites.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = powerupsprites.plist; sourceTree = "<group>"; };
+		CF04F98418A888840000C4D4 /* powerupsprites.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = powerupsprites.png; sourceTree = "<group>"; };
+		CF04F98B18A89CE00000C4D4 /* Powerups.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Powerups.h; sourceTree = "<group>"; };
+		CF04F98C18A89CE00000C4D4 /* Powerups.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Powerups.m; sourceTree = "<group>"; };
+		CF04F99A18AB08B00000C4D4 /* powerupbox-hd.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "powerupbox-hd.plist"; sourceTree = "<group>"; };
+		CF04F99B18AB08B00000C4D4 /* powerupbox-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "powerupbox-hd.png"; sourceTree = "<group>"; };
+		CF04F99C18AB08B00000C4D4 /* powerupbox-ipadhd.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "powerupbox-ipadhd.plist"; sourceTree = "<group>"; };
+		CF04F99D18AB08B00000C4D4 /* powerupbox-ipadhd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "powerupbox-ipadhd.png"; sourceTree = "<group>"; };
+		CF04F99E18AB08B00000C4D4 /* powerupbox.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = powerupbox.plist; sourceTree = "<group>"; };
+		CF04F99F18AB08B00000C4D4 /* powerupbox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = powerupbox.png; sourceTree = "<group>"; };
+		CF04F9A618AB57B30000C4D4 /* wizardblobs-hd.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "wizardblobs-hd.plist"; sourceTree = "<group>"; };
+		CF04F9A718AB57B30000C4D4 /* wizardblobs-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wizardblobs-hd.png"; sourceTree = "<group>"; };
+		CF04F9A818AB57B40000C4D4 /* wizardblobs-ipadhd.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "wizardblobs-ipadhd.plist"; sourceTree = "<group>"; };
+		CF04F9A918AB57B40000C4D4 /* wizardblobs-ipadhd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wizardblobs-ipadhd.png"; sourceTree = "<group>"; };
+		CF04F9AA18AB57B50000C4D4 /* wizardblobs.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = wizardblobs.plist; sourceTree = "<group>"; };
+		CF04F9AB18AB57B50000C4D4 /* wizardblobs.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wizardblobs.png; sourceTree = "<group>"; };
+		CF04F9B218AB700A0000C4D4 /* smallwizardblob.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = smallwizardblob.png; sourceTree = "<group>"; };
 		CF2C96DB187DE9C900689346 /* Blobageddon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Blobageddon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF2C96DE187DE9C900689346 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		CF2C96E0187DE9C900689346 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -612,6 +653,8 @@
 			children = (
 				CF2C989118801CBF00689346 /* Blobs.h */,
 				CF2C989218801CBF00689346 /* Blobs.m */,
+				CF04F98B18A89CE00000C4D4 /* Powerups.h */,
+				CF04F98C18A89CE00000C4D4 /* Powerups.m */,
 				CF2C9883187DE9CB00689346 /* AppDelegate.h */,
 				CF2C9884187DE9CB00689346 /* AppDelegate.m */,
 				CF2C9886187DE9CB00689346 /* HelloWorldLayer.h */,
@@ -1048,6 +1091,19 @@
 		CFA40DC71886090A00398736 /* sprites */ = {
 			isa = PBXGroup;
 			children = (
+				CF04F9B218AB700A0000C4D4 /* smallwizardblob.png */,
+				CF04F9A618AB57B30000C4D4 /* wizardblobs-hd.plist */,
+				CF04F9A718AB57B30000C4D4 /* wizardblobs-hd.png */,
+				CF04F9A818AB57B40000C4D4 /* wizardblobs-ipadhd.plist */,
+				CF04F9A918AB57B40000C4D4 /* wizardblobs-ipadhd.png */,
+				CF04F9AA18AB57B50000C4D4 /* wizardblobs.plist */,
+				CF04F9AB18AB57B50000C4D4 /* wizardblobs.png */,
+				CF04F97F18A888840000C4D4 /* powerupsprites-hd.plist */,
+				CF04F98018A888840000C4D4 /* powerupsprites-hd.png */,
+				CF04F98118A888840000C4D4 /* powerupsprites-ipadhd.plist */,
+				CF04F98218A888840000C4D4 /* powerupsprites-ipadhd.png */,
+				CF04F98318A888840000C4D4 /* powerupsprites.plist */,
+				CF04F98418A888840000C4D4 /* powerupsprites.png */,
 				CF51A9F1189A10BB0006B86F /* allsprites-hd.plist */,
 				CF51A9F2189A10BB0006B86F /* allsprites-hd.png */,
 				CF51A9F3189A10BB0006B86F /* allsprites-ipadhd.plist */,
@@ -1086,6 +1142,12 @@
 		CFA40DC81886093C00398736 /* background */ = {
 			isa = PBXGroup;
 			children = (
+				CF04F99A18AB08B00000C4D4 /* powerupbox-hd.plist */,
+				CF04F99B18AB08B00000C4D4 /* powerupbox-hd.png */,
+				CF04F99C18AB08B00000C4D4 /* powerupbox-ipadhd.plist */,
+				CF04F99D18AB08B00000C4D4 /* powerupbox-ipadhd.png */,
+				CF04F99E18AB08B00000C4D4 /* powerupbox.plist */,
+				CF04F99F18AB08B00000C4D4 /* powerupbox.png */,
 				CF51A9EF18996B970006B86F /* backbutton.png */,
 				CF4EAB981897F68A00C426FE /* mainmenubuttons-hd.plist */,
 				CF4EAB991897F68A00C426FE /* mainmenubuttons-hd.png */,
@@ -1220,6 +1282,25 @@
 				CF858305189AB9D9007A6523 /* Default-Portrait@2x~ipad.png in Resources */,
 				CF858307189AB9DB007A6523 /* Default-Landscape~ipad.png in Resources */,
 				CF858309189AB9DE007A6523 /* Default-Landscape@2x~ipad.png in Resources */,
+				CF04F98518A888840000C4D4 /* powerupsprites-hd.plist in Resources */,
+				CF04F98618A888840000C4D4 /* powerupsprites-hd.png in Resources */,
+				CF04F98718A888840000C4D4 /* powerupsprites-ipadhd.plist in Resources */,
+				CF04F98818A888840000C4D4 /* powerupsprites-ipadhd.png in Resources */,
+				CF04F98918A888840000C4D4 /* powerupsprites.plist in Resources */,
+				CF04F98A18A888840000C4D4 /* powerupsprites.png in Resources */,
+				CF04F9A018AB08B00000C4D4 /* powerupbox-hd.plist in Resources */,
+				CF04F9A118AB08B00000C4D4 /* powerupbox-hd.png in Resources */,
+				CF04F9A218AB08B00000C4D4 /* powerupbox-ipadhd.plist in Resources */,
+				CF04F9A318AB08B00000C4D4 /* powerupbox-ipadhd.png in Resources */,
+				CF04F9A418AB08B00000C4D4 /* powerupbox.plist in Resources */,
+				CF04F9A518AB08B00000C4D4 /* powerupbox.png in Resources */,
+				CF04F9AC18AB57B50000C4D4 /* wizardblobs-hd.plist in Resources */,
+				CF04F9AD18AB57B50000C4D4 /* wizardblobs-hd.png in Resources */,
+				CF04F9AE18AB57B50000C4D4 /* wizardblobs-ipadhd.plist in Resources */,
+				CF04F9AF18AB57B50000C4D4 /* wizardblobs-ipadhd.png in Resources */,
+				CF04F9B018AB57B50000C4D4 /* wizardblobs.plist in Resources */,
+				CF04F9B118AB57B50000C4D4 /* wizardblobs.png in Resources */,
+				CF04F9B318AB700A0000C4D4 /* smallwizardblob.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1346,6 +1427,7 @@
 				CF4EAB731897B70D00C426FE /* LaunchLayer.m in Sources */,
 				CF51A9EB189924F10006B86F /* CreditsLayer.m in Sources */,
 				CF51A9EE189925080006B86F /* DirectionsLayer.m in Sources */,
+				CF04F98D18A89CE00000C4D4 /* Powerups.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
