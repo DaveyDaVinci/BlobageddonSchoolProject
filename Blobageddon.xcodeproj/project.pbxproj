@@ -37,12 +37,6 @@
 		CF2C96ED187DE9C900689346 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF2C96EC187DE9C900689346 /* CoreGraphics.framework */; };
 		CF2C96EF187DE9C900689346 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF2C96EE187DE9C900689346 /* CoreText.framework */; };
 		CF2C96F1187DE9C900689346 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF2C96F0187DE9C900689346 /* GameKit.framework */; };
-		CF2C96FD187DE9C900689346 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = CF2C96FC187DE9C900689346 /* Icon-72.png */; };
-		CF2C96FF187DE9C900689346 /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = CF2C96FE187DE9C900689346 /* Icon-Small-50.png */; };
-		CF2C9701187DE9C900689346 /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = CF2C9700187DE9C900689346 /* Icon-Small.png */; };
-		CF2C9703187DE9C900689346 /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CF2C9702187DE9C900689346 /* Icon-Small@2x.png */; };
-		CF2C9705187DE9C900689346 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = CF2C9704187DE9C900689346 /* Icon.png */; };
-		CF2C9707187DE9C900689346 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CF2C9706187DE9C900689346 /* Icon@2x.png */; };
 		CF2C970A187DE9C900689346 /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = CF2C9709187DE9C900689346 /* iTunesArtwork */; };
 		CF2C970F187DE9C900689346 /* CCAction.m in Sources */ = {isa = PBXBuildFile; fileRef = CF2C970E187DE9C900689346 /* CCAction.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		CF2C9712187DE9C900689346 /* CCActionCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = CF2C9711187DE9C900689346 /* CCActionCamera.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -254,16 +248,6 @@
 		CF2C96EC187DE9C900689346 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		CF2C96EE187DE9C900689346 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		CF2C96F0187DE9C900689346 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
-		CF2C96F4187DE9C900689346 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = Resources/Default.png; sourceTree = "<group>"; };
-		CF2C96F6187DE9C900689346 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "Resources/Default@2x.png"; sourceTree = "<group>"; };
-		CF2C96F8187DE9C900689346 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "Resources/Default-568h@2x.png"; sourceTree = "<group>"; };
-		CF2C96FA187DE9C900689346 /* Default-Landscape~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Landscape~ipad.png"; path = "Resources/Default-Landscape~ipad.png"; sourceTree = "<group>"; };
-		CF2C96FC187DE9C900689346 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-72.png"; path = "Resources/Icon-72.png"; sourceTree = "<group>"; };
-		CF2C96FE187DE9C900689346 /* Icon-Small-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Small-50.png"; path = "Resources/Icon-Small-50.png"; sourceTree = "<group>"; };
-		CF2C9700187DE9C900689346 /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Small.png"; path = "Resources/Icon-Small.png"; sourceTree = "<group>"; };
-		CF2C9702187DE9C900689346 /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Small@2x.png"; path = "Resources/Icon-Small@2x.png"; sourceTree = "<group>"; };
-		CF2C9704187DE9C900689346 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = Resources/Icon.png; sourceTree = "<group>"; };
-		CF2C9706187DE9C900689346 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "Resources/Icon@2x.png"; sourceTree = "<group>"; };
 		CF2C9708187DE9C900689346 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = Resources/Info.plist; sourceTree = "<group>"; };
 		CF2C9709187DE9C900689346 /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; name = iTunesArtwork; path = Resources/iTunesArtwork; sourceTree = "<group>"; };
 		CF2C970D187DE9C900689346 /* CCAction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CCAction.h; path = libs/cocos2d/CCAction.h; sourceTree = "<group>"; };
@@ -681,16 +665,6 @@
 				CFA40DC81886093C00398736 /* background */,
 				CFA40DC71886090A00398736 /* sprites */,
 				CFA40DC6188608FC00398736 /* sounds */,
-				CF2C96F4187DE9C900689346 /* Default.png */,
-				CF2C96F6187DE9C900689346 /* Default@2x.png */,
-				CF2C96F8187DE9C900689346 /* Default-568h@2x.png */,
-				CF2C96FA187DE9C900689346 /* Default-Landscape~ipad.png */,
-				CF2C96FC187DE9C900689346 /* Icon-72.png */,
-				CF2C96FE187DE9C900689346 /* Icon-Small-50.png */,
-				CF2C9700187DE9C900689346 /* Icon-Small.png */,
-				CF2C9702187DE9C900689346 /* Icon-Small@2x.png */,
-				CF2C9704187DE9C900689346 /* Icon.png */,
-				CF2C9706187DE9C900689346 /* Icon@2x.png */,
 				CF2C9708187DE9C900689346 /* Info.plist */,
 				CF2C9709187DE9C900689346 /* iTunesArtwork */,
 			);
@@ -1216,12 +1190,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CF2C96FD187DE9C900689346 /* Icon-72.png in Resources */,
-				CF2C96FF187DE9C900689346 /* Icon-Small-50.png in Resources */,
-				CF2C9701187DE9C900689346 /* Icon-Small.png in Resources */,
-				CF2C9703187DE9C900689346 /* Icon-Small@2x.png in Resources */,
-				CF2C9705187DE9C900689346 /* Icon.png in Resources */,
-				CF2C9707187DE9C900689346 /* Icon@2x.png in Resources */,
 				CF2C970A187DE9C900689346 /* iTunesArtwork in Resources */,
 				CF2C9863187DE9CB00689346 /* ChangeLog in Resources */,
 				CF2C98A31880271500689346 /* sprite1.png in Resources */,
