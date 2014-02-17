@@ -47,6 +47,8 @@
     
     CADisplayLink *gameTimer;
     
+    NSTimer *gameWinTimer;
+    
     Blobs *selectedBlob;
     
     CGSize winSize;
@@ -58,9 +60,13 @@
     BOOL pausePlay;
     
     int blobScore;
+    int timeKeep;
+    
+    int largeBlobsAppeared;
     
     
     CCLabelTTF *scoreLabel;
+    CCLabelTTF *timerLabel;
     
     CCSpriteBatchNode *largeSpritesheet;
     CCSpriteBatchNode *powerupSpriteSheet;

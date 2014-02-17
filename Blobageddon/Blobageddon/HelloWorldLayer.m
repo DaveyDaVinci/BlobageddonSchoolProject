@@ -63,9 +63,9 @@
         largeSpritesheet = [CCSpriteBatchNode batchNodeWithFile:@"spriteanimated.png"];
         [self addChild:largeSpritesheet];
         powerupSpriteSheet = [CCSpriteBatchNode batchNodeWithFile:@"powerupsprites.png"];
-        [self addChild:powerupSpriteSheet];
+        [self addChild:powerupSpriteSheet z:-10];
         powerUpBoxes = [CCSpriteBatchNode batchNodeWithFile:@"powerupbox.png"];
-        [self addChild:powerUpBoxes];
+        [self addChild:powerUpBoxes z:30];
         wizardSpritesheet = [CCSpriteBatchNode batchNodeWithFile:@"wizardblobs.png"];
         [self addChild:wizardSpritesheet];
         
@@ -104,16 +104,7 @@
         firemanPowerUp.powerUpSprite = [CCSprite spriteWithSpriteFrameName:@"FiremanHat.png"];
         //[powerupSpriteSheet addChild:firemanPowerUp.powerUpSprite];
         [arrayOfPowerups addObject:firemanPowerUp];
-        
-        for (int i = 0; i < 10; i++)
-        {
-            CGPoint randomTest = [self randomPoint];
-            
-            NSLog(@"x = %f, y = %f", randomTest.x, randomTest.y);
-        }
-        
-        
-      
+       
         
         largeSpriteAnim = [NSMutableArray array];
         for (int i = 1;  i <= 3; i++)
@@ -152,10 +143,13 @@
         loseButton.scale = .4;
         [self addChild:loseButton z:100];
         
+        largeBlobsAppeared = 0;
         
         for (int i = 0; i < 50; i++)
         {
             Blobs *largeBlob = [[Blobs alloc] initWithBlobType:BLUE_GLOB blobSize:LARGE_GLOB startTime:0.0 velocity:ccp(0, 0) location:ccp(40, 90) blobInterract:TRUE tag:i appeared:FALSE];
+            
+            largeBlob.blobPosition = [self randomPoint];
             
             
             
@@ -163,7 +157,7 @@
             
             [arrayOfSprites addObject:smallBlob];
             
-            
+            /*
             if (largeBlob.blobTag <= 5)
             {
                 largeBlob.appeared = TRUE;
@@ -174,10 +168,12 @@
                 
                
             }
+             */
             
             [arrayOfSprites addObject:largeBlob];
         }
         
+        /*
         for (Blobs *blob in arrayOfSprites)
         {
           
@@ -203,6 +199,7 @@
             
             
         }
+         */
         
         
         //Creates a cadisplaylink timers that will update the display every time the screen refreshes
@@ -227,6 +224,13 @@
         globalBlobType = BLUE_GLOB;
         
         wizardPowerUpUsed = FALSE;
+        
+        timeKeep = 0;
+        gameWinTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(gameWinTimer) userInfo:nil repeats:TRUE];
+        timerLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"Time: 0"] fontName: @"Courier" fontSize:20.0];
+        [timerLabel setPosition:ccp(winSize.width/2, winSize.height - 30)];
+        [self addChild:timerLabel  z:20];
+        
         
     }
 		return self;
@@ -279,10 +283,7 @@
     int random = arc4random() % 300;
     if (random == 25)
     {
-        NSLog(@"Random hit");
-        
-        
-        
+       
         Powerups *wizard = [arrayOfPowerups objectAtIndex:2];
         
         if (wizard.spriteAppeared == FALSE && wizard.spriteCollected == FALSE)
@@ -293,42 +294,42 @@
             
             [NSTimer scheduledTimerWithTimeInterval:.5 target:self selector:@selector(changePowerupInteraction:) userInfo:wizard repeats:FALSE];
             wizardPowerupTimer = [NSTimer scheduledTimerWithTimeInterval:8 target:self selector:@selector(removePowerupFromScreen:) userInfo:wizard repeats:FALSE];
-            
-            float x;
-            float y;
-            
-            if (wizard.spriteLocation.x < winSize.width / 2)
-            {
-                x = (arc4random() % 5) +1;
-                x = x / 2;
-            }
-            else
-            {
-                x = (arc4random() % 5) + 1;
-                x = x * -1;
-                x = x / 2;
-            }
-            
-            if (wizard.spriteLocation.y < winSize.height /2)
-            {
-                y = (arc4random() % 5) + 1;
-                 y = y / 2;
-            }
-            else
-            {
-                y = (arc4random() % 5) + 1;
-                y = y * -1;
-                y = y / 2;
-            }
-            
-            wizard.spriteVelocity = ccp(x, y);
-            
-            NSLog(@"%f, %f", wizard.spriteVelocity.x, wizard.spriteVelocity.y);
+            wizard.spriteVelocity = [self randomVelocity:wizard.spriteLocation];
         }
-        
+                
         
         
     }
+    else if (random > 30 && random < 35)
+    {
+        NSLog(@"random hit");
+        
+        if (largeBlobsAppeared < 25)
+        {
+            largeBlobsAppeared ++;
+            for (Blobs *blob in arrayOfSprites)
+            {
+                if (blob.appeared == FALSE)
+                {
+                    
+                    blob.appeared = TRUE;
+                    blob.blobPosition = [self randomPoint];
+                    blob.blobVelocity = [self randomVelocity:blob.blobPosition];
+                    
+                    blob.blobSprite = [CCSprite spriteWithSpriteFrameName:@"sprite1.png"];
+                    blob.blobSprite.position = blob.blobPosition;
+                    CCAnimation *largeBlueBlobAnimation = [CCAnimation animationWithSpriteFrames:largeSpriteAnim delay:0.1f];
+                    CCRepeatForever * largeBlueBlobMovement = [CCRepeatForever actionWithAction:[CCAnimate actionWithAnimation:largeBlueBlobAnimation]];
+                    [blob.blobSprite runAction:largeBlueBlobMovement];
+                    [largeSpritesheet addChild:blob.blobSprite];
+                    
+                    return;
+                }
+            }
+        }
+        
+    }
+
 
     for (Powerups *powerup in arrayOfPowerups)
     {
@@ -373,7 +374,7 @@
     
     if (CGRectContainsPoint(loseButton.boundingBox, location))
     {
-        [self winLoseGame:FALSE];
+        [self winLoseGame];
     }
     
     if (CGRectContainsPoint(wizardPowerUpBox.boundingBox, location))
@@ -593,7 +594,9 @@
                     [self determineSpriteDirection:ccp(blob.blobVelocity.x, - 1 * blob.blobVelocity.y) position:blob.blobPosition];
                     [self determineSpriteDirection:ccp(-1 * blob.blobVelocity.x, -1 * blob.blobVelocity.y) position:blob.blobPosition];
                 }
-               
+                
+                largeBlobsAppeared --;
+        
                 
             }
             else
@@ -630,6 +633,7 @@
                     [self determineSpriteDirection:ccp(-1 * blob.blobVelocity.x, -1 * blob.blobVelocity.y) position:blob.blobPosition];
                     [self determineSpriteDirection:ccp(blob.blobVelocity.x, -1 * blob.blobVelocity.y) position:blob.blobPosition];
                 }
+                largeBlobsAppeared --;
                 
             }
             else
@@ -670,6 +674,7 @@
                     [self determineSpriteDirection:ccp(-1 * blob.blobVelocity.x, -1 * blob.blobVelocity.y) position:blob.blobPosition];
                     [self determineSpriteDirection:ccp(-1 * blob.blobVelocity.x, blob.blobVelocity.y) position:blob.blobPosition];
                 }
+                largeBlobsAppeared --;
                 
             }
             else
@@ -708,6 +713,7 @@
                     [self determineSpriteDirection:ccp(-1 * blob.blobVelocity.x, -1 * blob.blobVelocity.y) position:blob.blobPosition];
                     [self determineSpriteDirection:ccp(-1 * blob.blobVelocity.x, blob.blobVelocity.y) position:blob.blobPosition];
                 }
+                largeBlobsAppeared --;
                 
             }
             else
@@ -723,11 +729,12 @@
         
         [scoreLabel setString:[NSString stringWithFormat:@"%d/10", blobScore]];
         
+        /*
         if (blobScore == 10)
         {
             [self winLoseGame:TRUE];
         }
-        
+        */
         
     }
 }
@@ -767,6 +774,8 @@
                     int maxY = MAX(blob1Velocity.y, blob2Velocity.y);
                     
                     CGPoint newVelocity = ccp((maxX - minX)/2, (maxY - minY)/2);
+                    
+                    largeBlobsAppeared ++;
                                         
                     for (Blobs *newGlob in arrayOfSprites)
                     {
@@ -890,9 +899,41 @@
     [self pauseOrResume];
 }
 
--(void) winLoseGame: (BOOL)win
+-(void) winLoseGame
 {
+    if (blobScore >= 30)
+    {
+        CCLabelTTF *winLabel = [CCLabelTTF labelWithString:@"YOU WIN!" fontName:@"Courier" fontSize:36.0];
+        [winLabel setPosition:ccp(winSize.width/2, winSize.height/2)];
+        [self addChild:winLabel z:20];
+        
+        if (wizardPowerUpUsed == FALSE)
+        {
+            CCLabelTTF *powerUPLabel = [CCLabelTTF labelWithString:@"Power Up Bonus: 100" fontName:@"Courier" fontSize:28.0];
+            [powerUPLabel setPosition:ccp(winSize.width/2, winSize.height/3)];
+            [self addChild:powerUPLabel z:20];
+        }
+        else
+        {
+            CCLabelTTF *powerUPLabel = [CCLabelTTF labelWithString:@"Power Up Bonus: 0" fontName:@"Courier" fontSize:28.0];
+            [powerUPLabel setPosition:ccp(winSize.width/2, winSize.height/3)];
+            [self addChild:powerUPLabel z:20];
+        }
+        
+        [gameTimer invalidate];
+        [gameWinTimer invalidate];
+    }
+    else
+    {
+        CCLabelTTF *winLabel = [CCLabelTTF labelWithString:@"YOU LOSE!" fontName:@"Courier" fontSize:36.0];
+        [winLabel setPosition:ccp(winSize.width/2, winSize.height/2)];
+        [self addChild:winLabel z:20];
+        [gameTimer invalidate];
+        [gameWinTimer invalidate];
+        
+    }
     
+    /*
     if (win)
     {
         CCLabelTTF *winLabel = [CCLabelTTF labelWithString:@"YOU WIN!" fontName:@"Courier" fontSize:36.0];
@@ -922,6 +963,7 @@
         [self addChild:winLabel z:20];
         [gameTimer invalidate];
     }
+    */
 }
 
 -(void)determineSpriteDirection: (CGPoint ) velocity position: (CGPoint )position
@@ -1008,6 +1050,42 @@
     randomPoint = ccp(rndValueX, rndValueY);
     
     return randomPoint;
+}
+
+-(CGPoint)randomVelocity: (CGPoint)position
+{
+    float x;
+    float y;
+    
+    CGPoint velocity;
+    
+    if (position.x < winSize.width / 2)
+    {
+        x = (arc4random() % 5) +1;
+        x = x / 2;
+    }
+    else
+    {
+        x = (arc4random() % 5) + 1;
+        x = x * -1;
+        x = x / 2;
+    }
+    
+    if (position.y < winSize.height /2)
+    {
+        y = (arc4random() % 5) + 1;
+        y = y / 2;
+    }
+    else
+    {
+        y = (arc4random() % 5) + 1;
+        y = y * -1;
+        y = y / 2;
+    }
+    
+    velocity = ccp(x, y);
+    
+    return velocity;
 }
 
 
@@ -1181,6 +1259,17 @@
         }
     }
     globalBlobType = BLUE_GLOB;
+}
+
+-(void)gameWinTimer
+{
+    timeKeep ++;
+    [timerLabel setString:[NSString stringWithFormat:@"Time: %d", timeKeep]];
+    NSLog(@"%d", largeBlobsAppeared);
+    if (timeKeep == 60)
+    {
+        [self winLoseGame];
+    }
 }
 
 
