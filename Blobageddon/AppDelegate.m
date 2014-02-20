@@ -12,6 +12,7 @@
 #import "IntroLayer.h"
 #import "HelloWorldLayer.h"
 #import "LaunchLayer.h"
+#import <Parse/Parse.h>
 
 @implementation MyNavigationController
 
@@ -138,6 +139,13 @@
 	
 	// make main window visible
 	[window_ makeKeyAndVisible];
+    
+   [Parse setApplicationId:@"j3ujJA3v9UYxqGTyiVViG63ThhhAQWz1gcIkIEix"
+                  clientKey:@"ckpfp2QdEbkEGmSz0hHDbYOFfRZsVnt0cBz2mPSB"];
+    
+    [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
+    
+    
 	
 	return YES;
 }

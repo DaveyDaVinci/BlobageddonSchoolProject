@@ -85,6 +85,10 @@
         CCLabelTTF *creditsLabel = [CCLabelTTF labelWithString:@"Game design and programming by: David Magee\n\nSounds from Freesound.org\n\nBackground images from \nhttp://www.flickr.com/people/simoncpage/" fontName: @"Courier" fontSize:20.0];
         [creditsLabel setPosition:ccp(size.width / 2, (size.height / 3) * 2)];
         [self addChild:creditsLabel z:20];
+        
+        
+        
+        
     }
     
     return self;

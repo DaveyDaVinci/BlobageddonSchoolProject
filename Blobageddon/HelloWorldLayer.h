@@ -13,7 +13,7 @@
 #import "cocos2d.h"
 #import "Blobs.h"
 #import "Powerups.h"
-
+#import "SaveLeaderboardScores.h"
 
 #define BLUE_GLOB 0
 #define WIZARD_GLOB 1
@@ -27,7 +27,7 @@
 #define FIREMAN 3
 
 // HelloWorldLayer
-@interface HelloWorldLayer : CCLayer <GKAchievementViewControllerDelegate, GKLeaderboardViewControllerDelegate>
+@interface HelloWorldLayer : CCLayer <GKAchievementViewControllerDelegate, GKLeaderboardViewControllerDelegate, UITextFieldDelegate>
 {
     NSMutableArray *arrayOfSprites;
     
@@ -37,10 +37,14 @@
     
     BOOL swipedGlob;
     BOOL tappedWizardPowerup;
+    BOOL saveButtonTapped;
+    BOOL shareButtonTapped;
     
     int globalBlobType;
     
     int swipedGlobIndex;
+    
+    int finalScore;
     
     CGFloat startingX;
     CGFloat startingY;
@@ -57,6 +61,9 @@
     
     CCSprite *pausePlayButton;
     CCSprite *loseButton;
+    CCSprite *saveButton;
+    CCSprite *shareButton;
+    
     BOOL pausePlay;
     
     int blobScore;
@@ -79,6 +86,8 @@
     
     BOOL wizardPowerUpUsed;
     BOOL wizardPowerUpCollected;
+    
+    UITextField *userNameField;
     
     
 }

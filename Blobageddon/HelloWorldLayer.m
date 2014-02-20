@@ -10,6 +10,7 @@
 // Import the interfaces
 #import "HelloWorldLayer.h"
 #import "SimpleAudioEngine.h"
+#import <Social/Social.h>
 
 // Needed to obtain the Navigation Controller
 #import "AppDelegate.h"
@@ -83,6 +84,12 @@
         [powerupSpriteSheet addChild:wizard];
         [powerupSpriteSheet addChild:zombie];
         */
+        
+        
+        
+       
+        
+        
         
         
         Powerups *zombiePowerUp = [[Powerups alloc] initWithPowerupType:ZOMBIE position:[self randomPoint] velocity:ccp(0,0) appeared:FALSE interactive:FALSE collected:FALSE];
@@ -210,7 +217,7 @@
         
         blobScore = 0;
         
-        scoreLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"%d/10", blobScore] fontName: @"Courier" fontSize:20.0];
+        scoreLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"%d/20", blobScore] fontName: @"Courier" fontSize:20.0];
         [scoreLabel setPosition:ccp(winSize.width - 40, winSize.height - 30)];
         [self addChild:scoreLabel z:20];
         
@@ -304,12 +311,12 @@
     {
         NSLog(@"random hit");
         
-        if (largeBlobsAppeared < 25)
+        if (largeBlobsAppeared < 15)
         {
             largeBlobsAppeared ++;
             for (Blobs *blob in arrayOfSprites)
             {
-                if (blob.appeared == FALSE)
+                if (blob.appeared == FALSE && blob.blobSize == LARGE_GLOB)
                 {
                     
                     blob.appeared = TRUE;
@@ -323,7 +330,7 @@
                     [blob.blobSprite runAction:largeBlueBlobMovement];
                     [largeSpritesheet addChild:blob.blobSprite];
                     
-                    return;
+                    break;
                 }
             }
         }
@@ -374,7 +381,7 @@
     
     if (CGRectContainsPoint(loseButton.boundingBox, location))
     {
-        [self winLoseGame];
+        
     }
     
     if (CGRectContainsPoint(wizardPowerUpBox.boundingBox, location))
@@ -440,6 +447,16 @@
         }
     }
     
+    if (CGRectContainsPoint(saveButton.boundingBox, location))
+    {
+        saveButtonTapped = TRUE;
+    }
+    
+    if (CGRectContainsPoint(shareButton.boundingBox, location))
+    {
+        shareButtonTapped = TRUE;
+    }
+    
     
     
     
@@ -451,6 +468,13 @@
 
 -(void)ccTouchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    
+    UITouch *touch = [touches anyObject];
+    CGPoint location = [touch locationInView:[touch view]];
+    
+    location = [[CCDirector sharedDirector] convertToGL:location];
+    
+    
     if (swipedGlob == TRUE)
     {
         UITouch *touch = [touches anyObject];
@@ -501,6 +525,46 @@
         
         
     }
+    
+    if (CGRectContainsPoint(saveButton.boundingBox, location) && saveButtonTapped == TRUE)
+    {
+        saveButtonTapped = FALSE;
+        
+        [self removeChild:saveButton];
+        SaveLeaderboardScores *save = [[SaveLeaderboardScores alloc] init];
+        [save createOrLoadLeaderboard:userNameField.text score:finalScore];
+        [userNameField removeFromSuperview];
+        
+        NSMutableArray *savedScores = [save loadAllLeaderboardData];
+        
+        for (int i = 0; i < savedScores.count; i++)
+        {
+            NSLog(@"%@, %d", [[savedScores objectAtIndex:i] objectForKey:@"username"], [[[savedScores objectAtIndex:i] objectForKey:@"score"] intValue]);
+        }
+    }
+    
+    if (CGRectContainsPoint(shareButton.boundingBox, location) && shareButtonTapped == TRUE)
+    {
+        shareButtonTapped = FALSE;
+        
+        SLComposeViewController *composeVC = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
+        
+        if (composeVC != nil)
+        {
+            [composeVC setInitialText:[NSString stringWithFormat:@"I just finished a level of 'Blobageddon' with a score of %d!", finalScore]];
+            [[CCDirector sharedDirector] presentViewController:composeVC animated:TRUE completion:nil];
+        }
+    }
+    
+    if (!CGRectContainsPoint(saveButton.boundingBox, location))
+    {
+        saveButtonTapped = FALSE;
+    }
+    if (!CGRectContainsPoint(shareButton.boundingBox, location))
+    {
+        shareButtonTapped = FALSE;
+    }
+        
     
     
          
@@ -727,7 +791,7 @@
         }
         
         
-        [scoreLabel setString:[NSString stringWithFormat:@"%d/10", blobScore]];
+        [scoreLabel setString:[NSString stringWithFormat:@"%d/20", blobScore]];
         
         /*
         if (blobScore == 10)
@@ -901,24 +965,48 @@
 
 -(void) winLoseGame
 {
-    if (blobScore >= 30)
+    if (blobScore >= 20)
     {
         CCLabelTTF *winLabel = [CCLabelTTF labelWithString:@"YOU WIN!" fontName:@"Courier" fontSize:36.0];
         [winLabel setPosition:ccp(winSize.width/2, winSize.height/2)];
         [self addChild:winLabel z:20];
         
+        
+        
+        
+        
         if (wizardPowerUpUsed == FALSE)
         {
-            CCLabelTTF *powerUPLabel = [CCLabelTTF labelWithString:@"Power Up Bonus: 100" fontName:@"Courier" fontSize:28.0];
+            
+            finalScore = blobScore + 10;
+            CCLabelTTF *powerUPLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"Score: %d  Power Up Bonus: %d", finalScore, 10] fontName:@"Courier" fontSize:28.0];
             [powerUPLabel setPosition:ccp(winSize.width/2, winSize.height/3)];
             [self addChild:powerUPLabel z:20];
         }
         else
         {
-            CCLabelTTF *powerUPLabel = [CCLabelTTF labelWithString:@"Power Up Bonus: 0" fontName:@"Courier" fontSize:28.0];
+            finalScore = blobScore;
+            CCLabelTTF *powerUPLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"Score: %d  Power Up Bonus: 0", finalScore] fontName:@"Courier" fontSize:28.0];
             [powerUPLabel setPosition:ccp(winSize.width/2, winSize.height/3)];
             [self addChild:powerUPLabel z:20];
         }
+        
+        userNameField = [[UITextField alloc] initWithFrame:CGRectMake(winSize.width/5 , winSize.height/6 * 5, winSize.width/2 - winSize.width/4, winSize.height/10)];
+        userNameField.delegate = self;
+        userNameField.borderStyle = UITextBorderStyleRoundedRect;
+        userNameField.backgroundColor = [UIColor whiteColor];
+        [[[CCDirector sharedDirector] view] addSubview:userNameField];
+        
+        saveButton = [CCSprite spriteWithFile:@"savebutton.png"];
+        saveButton.scale = .5;
+        saveButton.position = ccp((userNameField.frame.origin.x + userNameField.frame.size.width) + 70, winSize.height/10);
+        [self addChild:saveButton];
+        
+        
+        shareButton = [CCSprite spriteWithFile:@"sharebutton.png"];
+        shareButton.scale = .5;
+        shareButton.position = ccp((saveButton.position.x + saveButton.boundingBox.size.width) + 20, winSize.height/10);
+        [self addChild:shareButton];
         
         [gameTimer invalidate];
         [gameWinTimer invalidate];
@@ -932,38 +1020,6 @@
         [gameWinTimer invalidate];
         
     }
-    
-    /*
-    if (win)
-    {
-        CCLabelTTF *winLabel = [CCLabelTTF labelWithString:@"YOU WIN!" fontName:@"Courier" fontSize:36.0];
-        [winLabel setPosition:ccp(winSize.width/2, winSize.height/2)];
-        [self addChild:winLabel z:20];
-        
-        if (wizardPowerUpUsed == FALSE)
-        {
-            CCLabelTTF *powerUPLabel = [CCLabelTTF labelWithString:@"Power Up Bonus: 100" fontName:@"Courier" fontSize:28.0];
-            [powerUPLabel setPosition:ccp(winSize.width/2, winSize.height/3)];
-            [self addChild:powerUPLabel z:20];
-        }
-        else
-        {
-            CCLabelTTF *powerUPLabel = [CCLabelTTF labelWithString:@"Power Up Bonus: 0" fontName:@"Courier" fontSize:28.0];
-            [powerUPLabel setPosition:ccp(winSize.width/2, winSize.height/3)];
-            [self addChild:powerUPLabel z:20];
-        }
-        
-        [gameTimer invalidate];
-        //[[CCDirector sharedDirector] stopAnimation];
-    }
-    else if (!win)
-    {
-        CCLabelTTF *winLabel = [CCLabelTTF labelWithString:@"YOU LOSE!" fontName:@"Courier" fontSize:36.0];
-        [winLabel setPosition:ccp(winSize.width/2, winSize.height/2)];
-        [self addChild:winLabel z:20];
-        [gameTimer invalidate];
-    }
-    */
 }
 
 -(void)determineSpriteDirection: (CGPoint ) velocity position: (CGPoint )position
@@ -1270,6 +1326,13 @@
     {
         [self winLoseGame];
     }
+}
+
+
+-(BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [userNameField resignFirstResponder];
+    return TRUE;
 }
 
 
