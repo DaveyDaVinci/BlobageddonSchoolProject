@@ -227,7 +227,11 @@
 		CFB0C1C818B6649200DBA8C2 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFB0C1B718B661F100DBA8C2 /* Security.framework */; };
 		CFB0C1C918B6649900DBA8C2 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFB0C1B918B661F900DBA8C2 /* StoreKit.framework */; };
 		CFB0C1CA18B664A000DBA8C2 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFB0C1BB18B6620100DBA8C2 /* SystemConfiguration.framework */; };
-		CFB0C1CC18B6653400DBA8C2 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFB0C1CB18B6653400DBA8C2 /* Parse.framework */; };
+		CFB0C1CE18B6687F00DBA8C2 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFB0C1CD18B6687F00DBA8C2 /* Parse.framework */; };
+		CFB0C1D318B6E30300DBA8C2 /* byhighscore.png in Resources */ = {isa = PBXBuildFile; fileRef = CFB0C1CF18B6E30300DBA8C2 /* byhighscore.png */; };
+		CFB0C1D418B6E30300DBA8C2 /* byusername.png in Resources */ = {isa = PBXBuildFile; fileRef = CFB0C1D018B6E30300DBA8C2 /* byusername.png */; };
+		CFB0C1D518B6E30300DBA8C2 /* leaderbutton.png in Resources */ = {isa = PBXBuildFile; fileRef = CFB0C1D118B6E30300DBA8C2 /* leaderbutton.png */; };
+		CFB0C1D618B6E30300DBA8C2 /* localbutton.png in Resources */ = {isa = PBXBuildFile; fileRef = CFB0C1D218B6E30300DBA8C2 /* localbutton.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -605,7 +609,11 @@
 		CFB0C1B718B661F100DBA8C2 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		CFB0C1B918B661F900DBA8C2 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		CFB0C1BB18B6620100DBA8C2 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		CFB0C1CB18B6653400DBA8C2 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
+		CFB0C1CD18B6687F00DBA8C2 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
+		CFB0C1CF18B6E30300DBA8C2 /* byhighscore.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = byhighscore.png; sourceTree = "<group>"; };
+		CFB0C1D018B6E30300DBA8C2 /* byusername.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = byusername.png; sourceTree = "<group>"; };
+		CFB0C1D118B6E30300DBA8C2 /* leaderbutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = leaderbutton.png; sourceTree = "<group>"; };
+		CFB0C1D218B6E30300DBA8C2 /* localbutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = localbutton.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -633,7 +641,7 @@
 				CF2C96EB187DE9C900689346 /* Foundation.framework in Frameworks */,
 				CF2C96EF187DE9C900689346 /* CoreText.framework in Frameworks */,
 				CF2C96F1187DE9C900689346 /* GameKit.framework in Frameworks */,
-				CFB0C1CC18B6653400DBA8C2 /* Parse.framework in Frameworks */,
+				CFB0C1CE18B6687F00DBA8C2 /* Parse.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -643,7 +651,7 @@
 		CF2C96D2187DE9C900689346 = {
 			isa = PBXGroup;
 			children = (
-				CFB0C1CB18B6653400DBA8C2 /* Parse.framework */,
+				CFB0C1CD18B6687F00DBA8C2 /* Parse.framework */,
 				CF2C96F2187DE9C900689346 /* Blobageddon */,
 				CF2C96DD187DE9C900689346 /* Frameworks */,
 				CF2C96DC187DE9C900689346 /* Products */,
@@ -716,6 +724,10 @@
 		CF2C96F3187DE9C900689346 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				CFB0C1CF18B6E30300DBA8C2 /* byhighscore.png */,
+				CFB0C1D018B6E30300DBA8C2 /* byusername.png */,
+				CFB0C1D118B6E30300DBA8C2 /* leaderbutton.png */,
+				CFB0C1D218B6E30300DBA8C2 /* localbutton.png */,
 				CF51A9FD189A93690006B86F /* icons */,
 				CFA40DC81886093C00398736 /* background */,
 				CFA40DC71886090A00398736 /* sprites */,
@@ -1330,6 +1342,10 @@
 				CFB0C1AA18B5AD8500DBA8C2 /* highscoresbutton.png in Resources */,
 				CFB0C1AB18B5AD8500DBA8C2 /* savebutton.png in Resources */,
 				CFB0C1AC18B5AD8500DBA8C2 /* sharebutton.png in Resources */,
+				CFB0C1D318B6E30300DBA8C2 /* byhighscore.png in Resources */,
+				CFB0C1D418B6E30300DBA8C2 /* byusername.png in Resources */,
+				CFB0C1D518B6E30300DBA8C2 /* leaderbutton.png in Resources */,
+				CFB0C1D618B6E30300DBA8C2 /* localbutton.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1523,7 +1539,6 @@
 				OTHER_LDFLAGS = (
 					"-lz",
 					"-lsqlite3",
-					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1549,7 +1564,6 @@
 				OTHER_LDFLAGS = (
 					"-lz",
 					"-lsqlite3",
-					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";

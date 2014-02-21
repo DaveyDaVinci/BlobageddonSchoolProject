@@ -18,4 +18,8 @@
 
 -(void)createOrLoadLeaderboard:(NSString *)userName score:(int)highScore;
 -(NSMutableArray *)loadAllLeaderboardData;
+-(void)saveToParse: (NSString *)username score:(int)finalScore;
+
+-(NSMutableArray *)loadParseLeaderboardData;
+
 @end

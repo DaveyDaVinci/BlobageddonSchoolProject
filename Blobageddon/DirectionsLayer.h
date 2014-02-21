@@ -16,6 +16,8 @@
     
     
     BOOL buttonPressed;
+    
+    
 }
 +(CCScene *) scene;
 @end

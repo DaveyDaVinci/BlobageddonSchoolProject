@@ -11,6 +11,7 @@
 #import "HelloWorldLayer.h"
 #import "SimpleAudioEngine.h"
 #import <Social/Social.h>
+#import <Parse/Parse.h>
 
 // Needed to obtain the Navigation Controller
 #import "AppDelegate.h"
@@ -73,24 +74,7 @@
         
         arrayOfPowerups = [NSMutableArray array];
         
-        /*
-        CCSprite *fireman = [CCSprite spriteWithSpriteFrameName:@"FiremanHat.png"];
-        CCSprite *crown = [CCSprite spriteWithSpriteFrameName:@"crown.png"];
-        CCSprite *wizard = [CCSprite spriteWithSpriteFrameName:@"wizardhat.png"];
-        CCSprite *zombie = [CCSprite spriteWithSpriteFrameName:@"zombiebandage.png"];
-        
-        [powerupSpriteSheet addChild:fireman];
-        [powerupSpriteSheet addChild:crown];
-        [powerupSpriteSheet addChild:wizard];
-        [powerupSpriteSheet addChild:zombie];
-        */
-        
-        
-        
        
-        
-        
-        
         
         Powerups *zombiePowerUp = [[Powerups alloc] initWithPowerupType:ZOMBIE position:[self randomPoint] velocity:ccp(0,0) appeared:FALSE interactive:FALSE collected:FALSE];
         zombiePowerUp.powerUpSprite = [CCSprite spriteWithSpriteFrameName:@"zombiebandage.png"];
@@ -164,51 +148,11 @@
             
             [arrayOfSprites addObject:smallBlob];
             
-            /*
-            if (largeBlob.blobTag <= 5)
-            {
-                largeBlob.appeared = TRUE;
-                int randomX = arc4random() % abs(electricSprite.boundingBox.origin.x - 70);
-                int randomY = arc4random() % abs(winSize.height);
-                
-                 largeBlob.blobPosition = ccp(randomX, randomY);
-                
-               
-            }
-             */
-            
+                        
             [arrayOfSprites addObject:largeBlob];
         }
         
-        /*
-        for (Blobs *blob in arrayOfSprites)
-        {
-          
-            if (blob.appeared == TRUE)
-            {
-                if (blob.blobSize == LARGE_GLOB)
-                {
-                    
-                    blob.blobSprite = [CCSprite spriteWithSpriteFrameName:@"sprite1.png"];
-                    blob.blobSprite.position = blob.blobPosition;
-                    CCAnimation *largeBlueBlobAnimation = [CCAnimation animationWithSpriteFrames:largeSpriteAnim delay:0.1f];
-                    CCRepeatForever * largeBlueBlobMovement = [CCRepeatForever actionWithAction:[CCAnimate actionWithAnimation:largeBlueBlobAnimation]];
-                    [blob.blobSprite runAction:largeBlueBlobMovement];
-                    [largeSpritesheet addChild:blob.blobSprite];
-                  
-                }
-                else if (blob.blobSize == SMALL_GLOB)
-                {
-                    [self addChild:blob.blobSprite];
-                    blob.blobSprite.position = blob.blobPosition;
-                }
-            }
-            
-            
-        }
-         */
-        
-        
+                
         //Creates a cadisplaylink timers that will update the display every time the screen refreshes
        gameTimer = [CADisplayLink displayLinkWithTarget:self selector:@selector(updateDisplay:)];
         
@@ -534,6 +478,9 @@
         SaveLeaderboardScores *save = [[SaveLeaderboardScores alloc] init];
         [save createOrLoadLeaderboard:userNameField.text score:finalScore];
         [userNameField removeFromSuperview];
+        
+        [save saveToParse:userNameField.text score:finalScore];
+        
         
         NSMutableArray *savedScores = [save loadAllLeaderboardData];
         
@@ -1259,31 +1206,7 @@
         {
             
             blob.blobType = BLUE_GLOB;
-            
-            /*
-            if (blob.blobSize == LARGE_GLOB)
-            {
-                blob.blobType = BLUE_GLOB;
-                blob.blobSprite = [CCSprite spriteWithSpriteFrameName:@"sprite1.png"];
-                if (blob.appeared == TRUE)
-                {
-                    
-                }
-            }
-            else if (blob.blobSize == SMALL_GLOB)
-            {
-                blob.blobType = BLUE_GLOB;
-                blob.blobSprite = [CCSprite spriteWithFile:@"smallblob1.png"];
-                if (blob.appeared == TRUE)
-                {
-                    [self removeChild:blob.blobSprite];
-                    //blob.blobType = BLUE_GLOB;
-                    //blob.blobSprite = [CCSprite spriteWithFile:@"smallblob1.png"];
-                    [self addChild:blob.blobSprite];
-                }
-            }
-             */
-            
+                        
             if (blob.appeared == TRUE)
             {
                 

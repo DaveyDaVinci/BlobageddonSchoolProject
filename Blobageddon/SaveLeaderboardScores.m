@@ -7,6 +7,7 @@
 //
 
 #import "SaveLeaderboardScores.h"
+#import <Parse/Parse.h>
 
 @implementation SaveLeaderboardScores
 
@@ -143,5 +144,46 @@
     return returnedArray;
 }
 
+-(void)saveToParse: (NSString *)username score:(int)finalScore
+{
+    PFObject *saveObject = [PFObject objectWithClassName:@"LeaderboardScores"];
+    saveObject[@"username"] = username;
+    saveObject[@"score"] = @(finalScore);
+    [saveObject saveEventually];
+}
 
+-(NSMutableArray *)loadParseLeaderboardData
+{
+    NSMutableArray *returnedArray = [[NSMutableArray alloc] init];
+    PFQuery *query = [PFQuery queryWithClassName:@"LeaderboardScores"];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error){
+        
+        if (!error)
+        {
+            for (PFObject *object in objects)
+            {
+                NSLog(@"Hit");
+                
+                NSMutableDictionary *currentObject = [[NSMutableDictionary alloc] init];
+                [currentObject setObject:[object objectForKey:@"username"] forKey:@"username"];
+                [currentObject setObject:[object objectForKey:@"score"] forKey:@"score"];
+                
+                
+                
+                //NSLog(@"%@", [currentObject objectForKey:@"username"]);
+                
+                [returnedArray addObject:currentObject];
+                //NSLog(@"%d", returnedArray.count);
+                
+            }
+        }
+        
+        
+        
+    }];
+    
+    NSLog(@"%d", returnedArray.count);
+    return returnedArray;
+    
+}
 @end

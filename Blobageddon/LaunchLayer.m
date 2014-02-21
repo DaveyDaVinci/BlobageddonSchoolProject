@@ -11,6 +11,8 @@
 #import "CreditsLayer.h"
 #import "DirectionsLayer.h"
 
+#import <Parse/Parse.h>
+
 
 @implementation LaunchLayer
 
@@ -100,7 +102,9 @@
         [buttonSpriteSheet addChild:creditsButton z:10];
         creditsButton.position = ccp((size.width / 5) * 4, size.height / 5);
         
-        
+        PFObject *testObject = [PFObject objectWithClassName:@"TestObject"];
+        testObject[@"foo"] = @"bar";
+        [testObject saveInBackground];
         
         
         /*

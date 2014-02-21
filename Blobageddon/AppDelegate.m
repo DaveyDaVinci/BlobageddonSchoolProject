@@ -66,7 +66,10 @@
 	// Create the main window
 	window_ = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 	
-	
+	[Parse setApplicationId:@"j3ujJA3v9UYxqGTyiVViG63ThhhAQWz1gcIkIEix"
+                  clientKey:@"ckpfp2QdEbkEGmSz0hHDbYOFfRZsVnt0cBz2mPSB"];
+    
+    [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
 	// CCGLView creation
 	// viewWithFrame: size of the OpenGL view. For full screen use [_window bounds]
 	//  - Possible values: any CGRect
@@ -140,10 +143,7 @@
 	// make main window visible
 	[window_ makeKeyAndVisible];
     
-   [Parse setApplicationId:@"j3ujJA3v9UYxqGTyiVViG63ThhhAQWz1gcIkIEix"
-                  clientKey:@"ckpfp2QdEbkEGmSz0hHDbYOFfRZsVnt0cBz2mPSB"];
     
-    [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     
     
 	
