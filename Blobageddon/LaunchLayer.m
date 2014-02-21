@@ -97,9 +97,9 @@
         [buttonSpriteSheet addChild:directionsButton z:10];
         directionsButton.position = ccp(size.width / 2, size.height / 5);
         
-        creditsButton = [CCSprite spriteWithSpriteFrameName:@"creditsbutton.png"];
-        creditsButton.scale = 1.5;
-        [buttonSpriteSheet addChild:creditsButton z:10];
+        creditsButton = [CCSprite spriteWithFile:@"localbutton.png"];
+        creditsButton.scale = .75;
+        [self addChild:creditsButton];
         creditsButton.position = ccp((size.width / 5) * 4, size.height / 5);
         
         PFObject *testObject = [PFObject objectWithClassName:@"TestObject"];
