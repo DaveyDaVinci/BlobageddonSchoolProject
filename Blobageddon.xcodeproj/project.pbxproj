@@ -232,6 +232,7 @@
 		CFB0C1D418B6E30300DBA8C2 /* byusername.png in Resources */ = {isa = PBXBuildFile; fileRef = CFB0C1D018B6E30300DBA8C2 /* byusername.png */; };
 		CFB0C1D518B6E30300DBA8C2 /* leaderbutton.png in Resources */ = {isa = PBXBuildFile; fileRef = CFB0C1D118B6E30300DBA8C2 /* leaderbutton.png */; };
 		CFB0C1D618B6E30300DBA8C2 /* localbutton.png in Resources */ = {isa = PBXBuildFile; fileRef = CFB0C1D218B6E30300DBA8C2 /* localbutton.png */; };
+		CFD4AF2518BD76C400D1212E /* Achievements.m in Sources */ = {isa = PBXBuildFile; fileRef = CFD4AF2418BD76C400D1212E /* Achievements.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -614,6 +615,8 @@
 		CFB0C1D018B6E30300DBA8C2 /* byusername.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = byusername.png; sourceTree = "<group>"; };
 		CFB0C1D118B6E30300DBA8C2 /* leaderbutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = leaderbutton.png; sourceTree = "<group>"; };
 		CFB0C1D218B6E30300DBA8C2 /* localbutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = localbutton.png; sourceTree = "<group>"; };
+		CFD4AF2318BD76C400D1212E /* Achievements.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Achievements.h; sourceTree = "<group>"; };
+		CFD4AF2418BD76C400D1212E /* Achievements.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Achievements.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -714,6 +717,8 @@
 				CF51A9ED189925080006B86F /* DirectionsLayer.m */,
 				CFB0C1A018B57EFA00DBA8C2 /* SaveLeaderboardScores.h */,
 				CFB0C1A118B57EFA00DBA8C2 /* SaveLeaderboardScores.m */,
+				CFD4AF2318BD76C400D1212E /* Achievements.h */,
+				CFD4AF2418BD76C400D1212E /* Achievements.m */,
 				CF2C96F3187DE9C900689346 /* Resources */,
 				CF2C970B187DE9C900689346 /* libs */,
 				CF2C987F187DE9CB00689346 /* Supporting Files */,
@@ -1474,6 +1479,7 @@
 				CF51A9EE189925080006B86F /* DirectionsLayer.m in Sources */,
 				CF04F98D18A89CE00000C4D4 /* Powerups.m in Sources */,
 				CFB0C1A218B57EFA00DBA8C2 /* SaveLeaderboardScores.m in Sources */,
+				CFD4AF2518BD76C400D1212E /* Achievements.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -21,5 +21,9 @@
 -(void)saveToParse: (NSString *)username score:(int)finalScore;
 
 -(NSMutableArray *)loadParseLeaderboardData;
+-(void)createOrLoadAchievementTable;
+-(BOOL)gamePlayedBefore;
+-(void)overwriteTableData: (NSDictionary *)dictOfValues;
+-(NSMutableArray *)loadLocalAchievementData;
 
 @end

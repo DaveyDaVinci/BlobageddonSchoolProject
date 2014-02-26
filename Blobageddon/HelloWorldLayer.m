@@ -118,9 +118,6 @@
         [self addChild:electricSprite];
         
         
-        
-        
-        
         //Button creation
         pausePlayButton = [CCSprite spriteWithFile:@"pausebutton.png"];
         pausePlayButton.position = ccp(winSize.width - (pausePlayButton.boundingBox.size.width * .3), 0 + (pausePlayButton.boundingBox.size.height * .3));
@@ -183,6 +180,39 @@
         [self addChild:timerLabel  z:20];
         
         
+        save = [[SaveLeaderboardScores alloc] init];
+        //[save createOrLoadAchievementTable];
+        
+        BOOL *testBool = [save gamePlayedBefore];
+        
+        
+        if (testBool)
+        {
+            NSLog(@"Info populated");
+        }
+        else
+        {
+            [save createOrLoadAchievementTable];
+        }
+        
+      
+        
+        
+        
+        
+        //THIS SHOULD BE UPDATING MY SQLITE DATABASE, BUT IT'S NOT WORKING
+      NSDictionary *testDict = [[NSDictionary alloc] initWithObjectsAndKeys: @(2), @"games_played", @(2), @"games_won", @(2), @"games_lost", @(2), @"games_won_inrow", @(1), @"won_one_unlocked", @(1), @"lost_one_unlocked", @(1), @"won_three_in_row_unlocked", @(1), @"all_unlocked", nil];
+        
+      NSLog(@"%d", [[testDict objectForKey:@"lost_one_unlocked"] intValue]);
+        
+       [save overwriteTableData:testDict];
+         
+        
+        NSMutableArray *testToSeeIfValuesSaved = [save loadLocalAchievementData];
+        
+        NSLog(@"%d", [[[testToSeeIfValuesSaved objectAtIndex:0] objectForKey:@"games_played"] intValue]);
+        
+        
     }
 		return self;
 }
@@ -190,6 +220,8 @@
 // on "dealloc" you need to release all your retained objects
 
 
+
+//This ticks every time the screen is updated
 -(void)updateDisplay:(CADisplayLink *)sender
 {
     
@@ -253,7 +285,7 @@
     }
     else if (random > 30 && random < 35)
     {
-        NSLog(@"random hit");
+        //NSLog(@"random hit");
         
         if (largeBlobsAppeared < 15)
         {
@@ -303,6 +335,8 @@
 }
 
 
+
+//looks for beginning of touches
 -(void)ccTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     UITouch *touch = [touches anyObject];
@@ -410,6 +444,7 @@
 
 
 
+
 -(void)ccTouchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
     
@@ -475,7 +510,6 @@
         saveButtonTapped = FALSE;
         
         [self removeChild:saveButton];
-        SaveLeaderboardScores *save = [[SaveLeaderboardScores alloc] init];
         [save createOrLoadLeaderboard:userNameField.text score:finalScore];
         [userNameField removeFromSuperview];
         
@@ -517,6 +551,8 @@
          
 }
 
+
+//Checks blob collision with screen edges.  Will incorporate into other collision method
 -(void)checkCollisionWithScreenEdges: (Blobs *)blob
 {
     
@@ -565,6 +601,8 @@
      
 }
 
+
+//Checks for collision wiht electricity
 -(void)checkCollisionWithElectricity: (Blobs *)blob
 {
     if (CGRectIntersectsRect(blob.blobSprite.boundingBox, electricSprite.boundingBox))
@@ -740,16 +778,12 @@
         
         [scoreLabel setString:[NSString stringWithFormat:@"%d/20", blobScore]];
         
-        /*
-        if (blobScore == 10)
-        {
-            [self winLoseGame:TRUE];
-        }
-        */
         
     }
 }
 
+
+//Checks to see if two blobs collide
 -(void)checkCollisionWithOtherBlob: (Blobs *)blob
 {
     
@@ -862,6 +896,7 @@
     
 }
 
+//Pauses game
 -(void)pauseOrResume
 {
     
@@ -904,12 +939,15 @@
     [self pauseOrResume];
 }
 
+
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     pausePlay = TRUE;
     [self pauseOrResume];
 }
 
+
+//Checks to see if the game has been won or lost
 -(void) winLoseGame
 {
     if (blobScore >= 20)
@@ -969,6 +1007,9 @@
     }
 }
 
+
+
+//Used to determine sprite direction afte ra blob has been split up
 -(void)determineSpriteDirection: (CGPoint ) velocity position: (CGPoint )position
 {
     int count = 0;
@@ -1017,6 +1058,7 @@
 }
 
 
+//Creates a random point
 -(CGPoint)randomPoint
 {
     CGPoint randomPoint;
@@ -1055,6 +1097,7 @@
     return randomPoint;
 }
 
+//Creats a random velocity
 -(CGPoint)randomVelocity: (CGPoint)position
 {
     float x;
@@ -1092,7 +1135,7 @@
 }
 
 
-
+//Checks collision with screen.  Will incorporate it with the other collision method
 -(void)checkPowerupCollisionWithScreenEdges: (Powerups *)powerUp
 {
     
@@ -1141,6 +1184,8 @@
     
 }
 
+
+
 -(void)changePowerupInteraction: (NSTimer *)powerUpTimer
 {
     Powerups *powerup = [powerUpTimer userInfo];
@@ -1151,6 +1196,7 @@
 }
 
 
+//Makes the powerup go bye bye
 -(void)removePowerupFromScreen: (NSTimer *)powerUpTimer
 {
     
@@ -1165,6 +1211,7 @@
 
 
 
+//Changes them to wizard globs. W ill expand later to incorporate other powerups
 -(void)changeGlobType: (int)blobType
 {
     for (Blobs *blob in arrayOfSprites)
@@ -1197,6 +1244,8 @@
     }
 }
 
+
+//Function taht reverts them to blue globs
 -(void)revertToBlue: (NSTimer *)blobType
 {
     int type = [[blobType userInfo] intValue];
@@ -1240,8 +1289,11 @@
     globalBlobType = BLUE_GLOB;
 }
 
+
+//Timer to see if game ended
 -(void)gameWinTimer
 {
+    //Adds to it every second
     timeKeep ++;
     [timerLabel setString:[NSString stringWithFormat:@"Time: %d", timeKeep]];
     NSLog(@"%d", largeBlobsAppeared);
@@ -1256,6 +1308,77 @@
 {
     [userNameField resignFirstResponder];
     return TRUE;
+}
+
+
+
+
+//Function that checks for achievement data
+-(void)checkForAchievements: (BOOL)winOrLose
+{
+    //Grabs achievement data and puts them into individual vars
+    NSMutableArray *arrayOfAchievements = [save loadLocalAchievementData];
+    NSMutableDictionary *achievements = [arrayOfAchievements objectAtIndex:0];
+    
+    int gamesPlay = [achievements objectForKey:@"games_played"];
+    int gamesWon = [achievements objectForKey:@"games_won"];
+    int gamesLost = [achievements objectForKey:@"games_lost"];
+    int gamesWonInRow = [achievements objectForKey:@"games_won_inrow"];
+    int oneWonUnlocked = [achievements objectForKey:@"won_one_unlocked"];
+    int lostOneUnlocked = [achievements objectForKey:@"lost_one_unlocked"];
+    int wonThreeInRowUnlocked = [achievements objectForKey:@"won_three_in_row_unlocked"];
+    int allUnlocked = [achievements objectForKey:@"all_unlocked"];
+    
+    //Adds to games played total
+    gamesPlay ++;
+    
+    //Checks for achievement stats
+    if (winOrLose)
+    {
+        gamesWon ++;
+        gamesWonInRow ++;
+        
+        //Hasn't unlocked oneWon
+        if (oneWonUnlocked == 0)
+        {
+            oneWonUnlocked = 1;
+            
+            //Check to see if they've won 3 in a row
+            
+        }
+        
+        if (gamesWonInRow >= 2)
+        {
+            //If they haven't unlocked the achievement
+            if (wonThreeInRowUnlocked == 0)
+            {
+                wonThreeInRowUnlocked = 1;
+            }
+        }
+    }
+    else if (!winOrLose)
+    {
+        gamesLost ++;
+        gamesWonInRow = 0;
+        
+        if (lostOneUnlocked == 0)
+        {
+            lostOneUnlocked = 1;
+        }
+    }
+    
+    if (oneWonUnlocked == 1 && lostOneUnlocked == 1 && wonThreeInRowUnlocked == 1 && allUnlocked == 0 )
+    {
+        allUnlocked = 1;
+    }
+    
+    
+    NSDictionary *dictionaryOfUpdatedValues = [[NSDictionary alloc] initWithObjectsAndKeys: @(gamesPlay), @"games_played", @(gamesWon), @"games_won", @(gamesLost), @"games_lost", @(gamesWonInRow), @"games_won_inrow", @(oneWonUnlocked), @"won_one_unlocked", @(lostOneUnlocked), @"lost_one_unlocked", @(wonThreeInRowUnlocked), @"won_three_in_row_unlocked", @(allUnlocked), @"all_unlocked", nil];
+    
+    [save overwriteTableData:dictionaryOfUpdatedValues];
+    
+    
+    
 }
 
 

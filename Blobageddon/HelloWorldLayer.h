@@ -89,6 +89,8 @@
     
     UITextField *userNameField;
     
+    SaveLeaderboardScores *save;
+    
     
 }
 

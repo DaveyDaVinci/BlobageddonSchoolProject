@@ -10,6 +10,7 @@
 #import "HelloWorldLayer.h"
 #import "CreditsLayer.h"
 #import "DirectionsLayer.h"
+#import "Achievements.h"
 
 #import <Parse/Parse.h>
 
@@ -155,7 +156,7 @@
     else if (CGRectContainsPoint(creditsButton.boundingBox, location) && buttonPressed == TRUE)
     {
         buttonPressed = FALSE;
-        [[CCDirector sharedDirector] pushScene:[CCTransitionFade transitionWithDuration:.5 scene:[CreditsLayer scene]]];
+        [[CCDirector sharedDirector] pushScene:[CCTransitionFade transitionWithDuration:.5 scene:[Achievements scene]]];
     }
     else if (CGRectContainsPoint(directionsButton.boundingBox, location) && buttonPressed == TRUE)
     {
