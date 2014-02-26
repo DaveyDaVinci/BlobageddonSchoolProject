@@ -201,17 +201,36 @@
         
         
         //THIS SHOULD BE UPDATING MY SQLITE DATABASE, BUT IT'S NOT WORKING
-      NSDictionary *testDict = [[NSDictionary alloc] initWithObjectsAndKeys: @(2), @"games_played", @(2), @"games_won", @(2), @"games_lost", @(2), @"games_won_inrow", @(1), @"won_one_unlocked", @(1), @"lost_one_unlocked", @(1), @"won_three_in_row_unlocked", @(1), @"all_unlocked", nil];
         
-      NSLog(@"%d", [[testDict objectForKey:@"lost_one_unlocked"] intValue]);
+        /*
+        NSDictionary *testDict = [[NSDictionary alloc] initWithObjectsAndKeys: @(0), @"games_played", @(0), @"games_won", @(0), @"games_lost", @(0), @"games_won_inrow", @(0), @"won_one_unlocked", @(0), @"lost_one_unlocked", @(0), @"won_three_in_row_unlocked", @(0), @"all_unlocked", nil];
         
-       [save overwriteTableData:testDict];
+        [[NSUserDefaults standardUserDefaults] setObject:testDict forKey:@"achievements"];
+        
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        */
+        
+     // NSLog(@"%d", [[testDict objectForKey:@"lost_one_unlocked"] intValue]);
+        
+       //[save overwriteTableData:testDict];
          
         
-        NSMutableArray *testToSeeIfValuesSaved = [save loadLocalAchievementData];
+       // NSMutableArray *testToSeeIfValuesSaved = [save loadLocalAchievementData];
         
-        NSLog(@"%d", [[[testToSeeIfValuesSaved objectAtIndex:0] objectForKey:@"games_played"] intValue]);
+       // NSLog(@"%d", [[[testToSeeIfValuesSaved objectAtIndex:0] objectForKey:@"games_played"] intValue]);
         
+        
+        NSDictionary *results = [[NSUserDefaults standardUserDefaults] objectForKey:@"achievements"];
+        if (results == nil)
+        {
+            NSDictionary *testDict = [[NSDictionary alloc] initWithObjectsAndKeys: [NSNumber numberWithInt:0], @"games_played", [NSNumber numberWithInt:0], @"games_won", [NSNumber numberWithInt:0], @"games_lost", [NSNumber numberWithInt:0], @"games_won_inrow", [NSNumber numberWithInt:0], @"won_one_unlocked", [NSNumber numberWithInt:0], @"lost_one_unlocked", [NSNumber numberWithInt:0], @"won_three_in_row_unlocked", [NSNumber numberWithInt:0], @"all_unlocked", nil];
+            
+            [[NSUserDefaults standardUserDefaults] setObject:testDict forKey:@"achievements"];
+            
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        }
+        
+        NSLog(@"games played = %d, games won = %d. games lost = %d, won one unlocked = %d, lost one unlocked = %d", [[results objectForKey:@"games_played"] intValue], [[results objectForKey:@"games_won"] intValue], [[results objectForKey:@"games_lost"] intValue], [[results objectForKey:@"won_one_unlocked"] intValue], [[results objectForKey:@"lost_one_unlocked"] intValue]);
         
     }
 		return self;
@@ -993,6 +1012,8 @@
         shareButton.position = ccp((saveButton.position.x + saveButton.boundingBox.size.width) + 20, winSize.height/10);
         [self addChild:shareButton];
         
+        [self checkForAchievements:TRUE];
+        
         [gameTimer invalidate];
         [gameWinTimer invalidate];
     }
@@ -1001,6 +1022,9 @@
         CCLabelTTF *winLabel = [CCLabelTTF labelWithString:@"YOU LOSE!" fontName:@"Courier" fontSize:36.0];
         [winLabel setPosition:ccp(winSize.width/2, winSize.height/2)];
         [self addChild:winLabel z:20];
+        
+        [self checkForAchievements:FALSE];
+        
         [gameTimer invalidate];
         [gameWinTimer invalidate];
         
@@ -1317,8 +1341,10 @@
 -(void)checkForAchievements: (BOOL)winOrLose
 {
     //Grabs achievement data and puts them into individual vars
-    NSMutableArray *arrayOfAchievements = [save loadLocalAchievementData];
-    NSMutableDictionary *achievements = [arrayOfAchievements objectAtIndex:0];
+    //NSMutableArray *arrayOfAchievements = [save loadLocalAchievementData];
+    //NSMutableDictionary *achievements = [arrayOfAchievements objectAtIndex:0];
+    
+    NSDictionary *achievements = [[NSUserDefaults standardUserDefaults] objectForKey:@"achievements"];
     
     int gamesPlay = [achievements objectForKey:@"games_played"];
     int gamesWon = [achievements objectForKey:@"games_won"];
@@ -1373,9 +1399,12 @@
     }
     
     
-    NSDictionary *dictionaryOfUpdatedValues = [[NSDictionary alloc] initWithObjectsAndKeys: @(gamesPlay), @"games_played", @(gamesWon), @"games_won", @(gamesLost), @"games_lost", @(gamesWonInRow), @"games_won_inrow", @(oneWonUnlocked), @"won_one_unlocked", @(lostOneUnlocked), @"lost_one_unlocked", @(wonThreeInRowUnlocked), @"won_three_in_row_unlocked", @(allUnlocked), @"all_unlocked", nil];
+    NSDictionary *dictionaryOfUpdatedValues = [[NSDictionary alloc] initWithObjectsAndKeys: [NSNumber numberWithInt:gamesPlay], @"games_played", [NSNumber numberWithInt:gamesWon], @"games_won", [NSNumber numberWithInt:gamesLost], @"games_lost", [NSNumber numberWithInt:gamesWonInRow], @"games_won_inrow", [NSNumber numberWithInt:oneWonUnlocked], @"won_one_unlocked", [NSNumber numberWithInt:lostOneUnlocked], @"lost_one_unlocked", [NSNumber numberWithInt:wonThreeInRowUnlocked], @"won_three_in_row_unlocked", [NSNumber numberWithInt:allUnlocked], @"all_unlocked", nil];
     
-    [save overwriteTableData:dictionaryOfUpdatedValues];
+    // [save overwriteTableData:dictionaryOfUpdatedValues];
+    
+    [[NSUserDefaults standardUserDefaults] setObject:dictionaryOfUpdatedValues forKey:@"achievements"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
     
     
     
