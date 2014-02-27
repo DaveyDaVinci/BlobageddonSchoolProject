@@ -27,6 +27,7 @@
 	return scene;
 }
 
+//Creates a tableview and data to populate it with
 -(id)init
 {
     if( (self=[super init])) {
@@ -43,13 +44,10 @@
         tableView.delegate = self;
         tableView.dataSource = self;
         
-        SaveLeaderboardScores *save = [[SaveLeaderboardScores alloc] init];
-        
-        NSMutableArray *returnedArray = [save loadLocalAchievementData];
-        
-        NSMutableDictionary *returnedValues = [returnedArray objectAtIndex:0];
         
         arrayOfAchievements = [[NSMutableArray alloc] init];
+        
+        NSDictionary *returnedValues = [[NSUserDefaults standardUserDefaults] objectForKey:@"achievements2"];
         
         [arrayOfAchievements addObject:[returnedValues objectForKey:@"won_one_unlocked"]];
         [arrayOfAchievements addObject:[returnedValues objectForKey:@"lost_one_unlocked"]];
@@ -64,6 +62,7 @@
 
 }
 
+//Returns amount of achievements
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (arrayOfAchievements > 0 && arrayOfAchievements != NULL)
@@ -77,6 +76,7 @@
 }
 
 
+//Returns cell text
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];

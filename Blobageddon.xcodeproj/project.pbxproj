@@ -233,6 +233,9 @@
 		CFB0C1D518B6E30300DBA8C2 /* leaderbutton.png in Resources */ = {isa = PBXBuildFile; fileRef = CFB0C1D118B6E30300DBA8C2 /* leaderbutton.png */; };
 		CFB0C1D618B6E30300DBA8C2 /* localbutton.png in Resources */ = {isa = PBXBuildFile; fileRef = CFB0C1D218B6E30300DBA8C2 /* localbutton.png */; };
 		CFD4AF2518BD76C400D1212E /* Achievements.m in Sources */ = {isa = PBXBuildFile; fileRef = CFD4AF2418BD76C400D1212E /* Achievements.m */; };
+		CFD4AF2918BFF60400D1212E /* achievementbutton.png in Resources */ = {isa = PBXBuildFile; fileRef = CFD4AF2618BFF60400D1212E /* achievementbutton.png */; };
+		CFD4AF2A18BFF60400D1212E /* mainmenubutton.png in Resources */ = {isa = PBXBuildFile; fileRef = CFD4AF2718BFF60400D1212E /* mainmenubutton.png */; };
+		CFD4AF2B18BFF60400D1212E /* replaybutton.png in Resources */ = {isa = PBXBuildFile; fileRef = CFD4AF2818BFF60400D1212E /* replaybutton.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -617,6 +620,9 @@
 		CFB0C1D218B6E30300DBA8C2 /* localbutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = localbutton.png; sourceTree = "<group>"; };
 		CFD4AF2318BD76C400D1212E /* Achievements.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Achievements.h; sourceTree = "<group>"; };
 		CFD4AF2418BD76C400D1212E /* Achievements.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Achievements.m; sourceTree = "<group>"; };
+		CFD4AF2618BFF60400D1212E /* achievementbutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = achievementbutton.png; sourceTree = "<group>"; };
+		CFD4AF2718BFF60400D1212E /* mainmenubutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mainmenubutton.png; sourceTree = "<group>"; };
+		CFD4AF2818BFF60400D1212E /* replaybutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = replaybutton.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -729,6 +735,9 @@
 		CF2C96F3187DE9C900689346 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				CFD4AF2618BFF60400D1212E /* achievementbutton.png */,
+				CFD4AF2718BFF60400D1212E /* mainmenubutton.png */,
+				CFD4AF2818BFF60400D1212E /* replaybutton.png */,
 				CFB0C1CF18B6E30300DBA8C2 /* byhighscore.png */,
 				CFB0C1D018B6E30300DBA8C2 /* byusername.png */,
 				CFB0C1D118B6E30300DBA8C2 /* leaderbutton.png */,
@@ -1351,6 +1360,9 @@
 				CFB0C1D418B6E30300DBA8C2 /* byusername.png in Resources */,
 				CFB0C1D518B6E30300DBA8C2 /* leaderbutton.png in Resources */,
 				CFB0C1D618B6E30300DBA8C2 /* localbutton.png in Resources */,
+				CFD4AF2918BFF60400D1212E /* achievementbutton.png in Resources */,
+				CFD4AF2A18BFF60400D1212E /* mainmenubutton.png in Resources */,
+				CFD4AF2B18BFF60400D1212E /* replaybutton.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

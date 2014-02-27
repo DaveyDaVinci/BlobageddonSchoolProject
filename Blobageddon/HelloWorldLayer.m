@@ -12,6 +12,7 @@
 #import "SimpleAudioEngine.h"
 #import <Social/Social.h>
 #import <Parse/Parse.h>
+#import "LaunchLayer.h"
 
 // Needed to obtain the Navigation Controller
 #import "AppDelegate.h"
@@ -198,39 +199,19 @@
       
         
         
-        
-        
-        //THIS SHOULD BE UPDATING MY SQLITE DATABASE, BUT IT'S NOT WORKING
-        
-        /*
-        NSDictionary *testDict = [[NSDictionary alloc] initWithObjectsAndKeys: @(0), @"games_played", @(0), @"games_won", @(0), @"games_lost", @(0), @"games_won_inrow", @(0), @"won_one_unlocked", @(0), @"lost_one_unlocked", @(0), @"won_three_in_row_unlocked", @(0), @"all_unlocked", nil];
-        
-        [[NSUserDefaults standardUserDefaults] setObject:testDict forKey:@"achievements"];
-        
-        [[NSUserDefaults standardUserDefaults] synchronize];
-        */
-        
-     // NSLog(@"%d", [[testDict objectForKey:@"lost_one_unlocked"] intValue]);
-        
-       //[save overwriteTableData:testDict];
-         
-        
-       // NSMutableArray *testToSeeIfValuesSaved = [save loadLocalAchievementData];
-        
-       // NSLog(@"%d", [[[testToSeeIfValuesSaved objectAtIndex:0] objectForKey:@"games_played"] intValue]);
-        
-        
-        NSDictionary *results = [[NSUserDefaults standardUserDefaults] objectForKey:@"achievements"];
+        NSDictionary *results = [[NSUserDefaults standardUserDefaults] objectForKey:@"achievements2"];
         if (results == nil)
         {
             NSDictionary *testDict = [[NSDictionary alloc] initWithObjectsAndKeys: [NSNumber numberWithInt:0], @"games_played", [NSNumber numberWithInt:0], @"games_won", [NSNumber numberWithInt:0], @"games_lost", [NSNumber numberWithInt:0], @"games_won_inrow", [NSNumber numberWithInt:0], @"won_one_unlocked", [NSNumber numberWithInt:0], @"lost_one_unlocked", [NSNumber numberWithInt:0], @"won_three_in_row_unlocked", [NSNumber numberWithInt:0], @"all_unlocked", nil];
             
-            [[NSUserDefaults standardUserDefaults] setObject:testDict forKey:@"achievements"];
+            [[NSUserDefaults standardUserDefaults] setObject:testDict forKey:@"achievements2"];
             
             [[NSUserDefaults standardUserDefaults] synchronize];
         }
         
         NSLog(@"games played = %d, games won = %d. games lost = %d, won one unlocked = %d, lost one unlocked = %d", [[results objectForKey:@"games_played"] intValue], [[results objectForKey:@"games_won"] intValue], [[results objectForKey:@"games_lost"] intValue], [[results objectForKey:@"won_one_unlocked"] intValue], [[results objectForKey:@"lost_one_unlocked"] intValue]);
+         
+         
         
     }
 		return self;
@@ -417,8 +398,6 @@
                // [powerupSpriteSheet addChild:powerup.powerUpSprite];
                 
                 
-               
-                
                 
             }
             
@@ -528,6 +507,9 @@
     {
         saveButtonTapped = FALSE;
         
+        [[CCDirector sharedDirector] replaceScene:[HelloWorldLayer scene]];
+        
+        /*
         [self removeChild:saveButton];
         [save createOrLoadLeaderboard:userNameField.text score:finalScore];
         [userNameField removeFromSuperview];
@@ -541,12 +523,15 @@
         {
             NSLog(@"%@, %d", [[savedScores objectAtIndex:i] objectForKey:@"username"], [[[savedScores objectAtIndex:i] objectForKey:@"score"] intValue]);
         }
+         */
     }
     
     if (CGRectContainsPoint(shareButton.boundingBox, location) && shareButtonTapped == TRUE)
     {
         shareButtonTapped = FALSE;
         
+        [[CCDirector sharedDirector] replaceScene:[LaunchLayer scene]];
+        /*
         SLComposeViewController *composeVC = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
         
         if (composeVC != nil)
@@ -554,6 +539,7 @@
             [composeVC setInitialText:[NSString stringWithFormat:@"I just finished a level of 'Blobageddon' with a score of %d!", finalScore]];
             [[CCDirector sharedDirector] presentViewController:composeVC animated:TRUE completion:nil];
         }
+         */
     }
     
     if (!CGRectContainsPoint(saveButton.boundingBox, location))
@@ -971,13 +957,18 @@
 {
     if (blobScore >= 20)
     {
-        CCLabelTTF *winLabel = [CCLabelTTF labelWithString:@"YOU WIN!" fontName:@"Courier" fontSize:36.0];
-        [winLabel setPosition:ccp(winSize.width/2, winSize.height/2)];
-        [self addChild:winLabel z:20];
-        
-        
-        
-        
+        if ([self checkForAchievements:TRUE])
+        {
+            CCLabelTTF *winLabel = [CCLabelTTF labelWithString:@"YOU WIN! Trophy Unlocked" fontName:@"Courier" fontSize:36.0];
+            [winLabel setPosition:ccp(winSize.width/2, winSize.height/2)];
+            [self addChild:winLabel z:20];
+        }
+        else
+        {
+            CCLabelTTF *winLabel = [CCLabelTTF labelWithString:@"YOU WIN!" fontName:@"Courier" fontSize:36.0];
+            [winLabel setPosition:ccp(winSize.width/2, winSize.height/2)];
+            [self addChild:winLabel z:20];
+        }
         
         if (wizardPowerUpUsed == FALSE)
         {
@@ -995,6 +986,7 @@
             [self addChild:powerUPLabel z:20];
         }
         
+        /*
         userNameField = [[UITextField alloc] initWithFrame:CGRectMake(winSize.width/5 , winSize.height/6 * 5, winSize.width/2 - winSize.width/4, winSize.height/10)];
         userNameField.delegate = self;
         userNameField.borderStyle = UITextBorderStyleRoundedRect;
@@ -1011,24 +1003,43 @@
         shareButton.scale = .5;
         shareButton.position = ccp((saveButton.position.x + saveButton.boundingBox.size.width) + 20, winSize.height/10);
         [self addChild:shareButton];
+        */
         
-        [self checkForAchievements:TRUE];
         
         [gameTimer invalidate];
         [gameWinTimer invalidate];
     }
     else
     {
-        CCLabelTTF *winLabel = [CCLabelTTF labelWithString:@"YOU LOSE!" fontName:@"Courier" fontSize:36.0];
-        [winLabel setPosition:ccp(winSize.width/2, winSize.height/2)];
-        [self addChild:winLabel z:20];
+        if ([self checkForAchievements:FALSE])
+        {
+            CCLabelTTF *winLabel = [CCLabelTTF labelWithString:@"YOU LOSE! Trophy Unlocked" fontName:@"Courier" fontSize:36.0];
+            [winLabel setPosition:ccp(winSize.width/2, winSize.height/2)];
+            [self addChild:winLabel z:20];
+        }
+        else
+        {
+            CCLabelTTF *winLabel = [CCLabelTTF labelWithString:@"YOU LOSE!" fontName:@"Courier" fontSize:36.0];
+            [winLabel setPosition:ccp(winSize.width/2, winSize.height/2)];
+            [self addChild:winLabel z:20];
+        }
         
-        [self checkForAchievements:FALSE];
         
         [gameTimer invalidate];
         [gameWinTimer invalidate];
         
     }
+    
+    saveButton = [CCSprite spriteWithFile:@"replaybutton.png"];
+    saveButton.scale = .5;
+    saveButton.position = ccp(winSize.width/3, winSize.height/10);
+    [self addChild:saveButton];
+    
+    
+    shareButton = [CCSprite spriteWithFile:@"mainmenubutton.png"];
+    shareButton.scale = .5;
+    shareButton.position = ccp((saveButton.position.x + saveButton.boundingBox.size.width) + 20, winSize.height/10);
+    [self addChild:shareButton];
 }
 
 
@@ -1338,22 +1349,23 @@
 
 
 //Function that checks for achievement data
--(void)checkForAchievements: (BOOL)winOrLose
+-(BOOL)checkForAchievements: (BOOL)winOrLose
 {
+    BOOL achieveUnlocked = FALSE;
     //Grabs achievement data and puts them into individual vars
     //NSMutableArray *arrayOfAchievements = [save loadLocalAchievementData];
     //NSMutableDictionary *achievements = [arrayOfAchievements objectAtIndex:0];
     
-    NSDictionary *achievements = [[NSUserDefaults standardUserDefaults] objectForKey:@"achievements"];
+    NSDictionary *achievements = [[NSUserDefaults standardUserDefaults] objectForKey:@"achievements2"];
     
-    int gamesPlay = [achievements objectForKey:@"games_played"];
-    int gamesWon = [achievements objectForKey:@"games_won"];
-    int gamesLost = [achievements objectForKey:@"games_lost"];
-    int gamesWonInRow = [achievements objectForKey:@"games_won_inrow"];
-    int oneWonUnlocked = [achievements objectForKey:@"won_one_unlocked"];
-    int lostOneUnlocked = [achievements objectForKey:@"lost_one_unlocked"];
-    int wonThreeInRowUnlocked = [achievements objectForKey:@"won_three_in_row_unlocked"];
-    int allUnlocked = [achievements objectForKey:@"all_unlocked"];
+    int gamesPlay = [[achievements objectForKey:@"games_played"] intValue];
+    int gamesWon = [[achievements objectForKey:@"games_won"] intValue];
+    int gamesLost = [[achievements objectForKey:@"games_lost"] intValue];
+    int gamesWonInRow = [[achievements objectForKey:@"games_won_inrow"] intValue];
+    int oneWonUnlocked = [[achievements objectForKey:@"won_one_unlocked"] intValue];
+    int lostOneUnlocked = [[achievements objectForKey:@"lost_one_unlocked"] intValue];
+    int wonThreeInRowUnlocked = [[achievements objectForKey:@"won_three_in_row_unlocked"] intValue];
+    int allUnlocked = [[achievements objectForKey:@"all_unlocked"] intValue];
     
     //Adds to games played total
     gamesPlay ++;
@@ -1368,6 +1380,7 @@
         if (oneWonUnlocked == 0)
         {
             oneWonUnlocked = 1;
+            achieveUnlocked = TRUE;
             
             //Check to see if they've won 3 in a row
             
@@ -1379,6 +1392,7 @@
             if (wonThreeInRowUnlocked == 0)
             {
                 wonThreeInRowUnlocked = 1;
+                achieveUnlocked = TRUE;
             }
         }
     }
@@ -1390,12 +1404,14 @@
         if (lostOneUnlocked == 0)
         {
             lostOneUnlocked = 1;
+            achieveUnlocked = TRUE;
         }
     }
     
     if (oneWonUnlocked == 1 && lostOneUnlocked == 1 && wonThreeInRowUnlocked == 1 && allUnlocked == 0 )
     {
         allUnlocked = 1;
+        achieveUnlocked = TRUE;
     }
     
     
@@ -1403,8 +1419,10 @@
     
     // [save overwriteTableData:dictionaryOfUpdatedValues];
     
-    [[NSUserDefaults standardUserDefaults] setObject:dictionaryOfUpdatedValues forKey:@"achievements"];
+    [[NSUserDefaults standardUserDefaults] setObject:dictionaryOfUpdatedValues forKey:@"achievements2"];
     [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    return achieveUnlocked;
     
     
     
